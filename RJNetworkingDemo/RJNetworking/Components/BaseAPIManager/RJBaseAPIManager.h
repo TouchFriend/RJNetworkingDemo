@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 代理
 @property (nonatomic, weak, nullable) id <RJAPIManagerCallbackDelegate> delegate;
+/// 参数代理
+@property (nonatomic, weak, nullable) id <RJAPIManagerParametersSource> parametersSource;
 /// url路径
 @property (nonatomic, copy) NSString *urlPath;
 /// 服务器标识符（服务器类名）
@@ -37,11 +39,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) RJAPIManagerCallbackBlock failBlock;
 
 
+/// 加载数据，参数源为parametersSource
+/// @return 请求id
+- (NSInteger)loadData;
 
+/// 加载数据
+/// @param parameters 参数
+/// @return 请求id
 - (NSInteger)loadDataWithParameters:(nullable id)parameters;
 
+/// 取消请求
+/// @param requestID 请求id
 - (void)cancelRequestWithRequestID:(NSInteger)requestID;
 
+/// 取消所有请求
 - (void)cancelAllRequests;
 
 @end

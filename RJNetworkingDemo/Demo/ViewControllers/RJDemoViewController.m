@@ -71,11 +71,11 @@
 #pragma mark - RJAPIManagerCallbackDelegate Methods
 
 - (void)managerCallAPIDidSuccess:(RJBaseAPIManager *)manager {
-    NSLog(@"成功:%@", manager.response.responseObject);
+    NSLog(@"成功代理:%@", manager.response.responseObject);
 }
 
 - (void)managerCallAPIDidFailed:(RJBaseAPIManager *)manager {
-    NSLog(@"失败：%@\n%@", manager.response.responseObject, manager.response.error);
+    NSLog(@"失败代理：%@\n%@", manager.response.responseObject, manager.response.error);
 }
 
 #pragma mark - Property Methods

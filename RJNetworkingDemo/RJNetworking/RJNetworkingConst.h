@@ -37,7 +37,13 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerRequestSerializerType) {
 
 @protocol RJAPIManagerCallbackDelegate <NSObject>
 
-- (void)managerCallAPIDidSuccess:(RJBaseAPIManager *)manager;
-- (void)managerCallAPIDidFailed:(RJBaseAPIManager *)manager;
+- (void)managerCallAPIDidSuccess:(RJBaseAPIManager *_Nonnull)manager;
+- (void)managerCallAPIDidFailed:(RJBaseAPIManager *_Nonnull)manager;
+
+@end
+
+@protocol RJAPIManagerParametersSource <NSObject>
+
+- (id _Nullable)parametersForAPI:(RJBaseAPIManager * _Nonnull)manager;
 
 @end

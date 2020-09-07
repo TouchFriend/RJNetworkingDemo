@@ -29,6 +29,11 @@
 
 #pragma mark - Public Methods
 
+- (NSInteger)loadData {
+    id parameters = [self.parametersSource parametersForAPI:self];
+    return [self loadDataWithParameters:parameters];
+}
+
 - (NSInteger)loadDataWithParameters:(id)parameters {
     if (parameters && ![parameters isKindOfClass:[NSDictionary class]] && ![parameters isKindOfClass:[NSArray class]]) {
         NSAssert(NO, @"请求参数的类型必须是NSDictionary或者NSArray");
@@ -76,22 +81,27 @@
 
 - (void)successOnCallingAPI:(RJURLResponse *)response {
     self.response = response;
-    if (self.successBlock) {
-        self.successBlock(self);
-    }
-    if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
-        [self.delegate managerCallAPIDidSuccess:self];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.successBlock) {
+            self.successBlock(self);
+        }
+        if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
+            [self.delegate managerCallAPIDidSuccess:self];
+        }
+    });
+    
 }
 
 - (void)failOnCallingAPI:(RJURLResponse *)response {
     self.response = response;
-    if (self.failBlock) {
-        self.failBlock(self);
-    }
-    if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
-        [self.delegate managerCallAPIDidFailed:self];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.failBlock) {
+            self.failBlock(self);
+        }
+        if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
+            [self.delegate managerCallAPIDidFailed:self];
+        }
+    });
 }
 
 #pragma mark - Property Methods
