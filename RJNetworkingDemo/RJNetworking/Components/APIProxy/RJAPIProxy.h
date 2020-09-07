@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RJAPIProxy : NSObject
 
+/// 单例
++ (instancetype)sharedInstance;
+
+- (NSNumber *)callApiWithRequest:(NSURLRequest *)request;
+
 @end
 
 NS_ASSUME_NONNULL_END

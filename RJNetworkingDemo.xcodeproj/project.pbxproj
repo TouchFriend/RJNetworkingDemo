@@ -22,7 +22,11 @@
 		BF1C5EB02500E478002A6B3B /* RJBaseAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1C5EAF2500E478002A6B3B /* RJBaseAPIManager.m */; };
 		BF1C5EB32500E482002A6B3B /* RJAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1C5EB22500E482002A6B3B /* RJAPIProxy.m */; };
 		BF1C5EB62500E6DE002A6B3B /* RJNetworkingConst.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1C5EB52500E6DE002A6B3B /* RJNetworkingConst.m */; };
+		BF254F932502168F002F5162 /* RJRequestSerializerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF254F922502168F002F5162 /* RJRequestSerializerHelper.m */; };
 		BF76439EE4F3C3B9AF6C5A26 /* Pods_RJNetworkingDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7872DC2395E2B72930CDBA34 /* Pods_RJNetworkingDemoTests.framework */; };
+		BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */; };
+		BFC8105D250224E100AA835F /* RJURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC8105C250224E100AA835F /* RJURLResponse.m */; };
+		BFC8106025022B0200AA835F /* RJDemoAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +82,14 @@
 		BF1C5EB42500E6DE002A6B3B /* RJNetworkingConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJNetworkingConst.h; sourceTree = "<group>"; };
 		BF1C5EB52500E6DE002A6B3B /* RJNetworkingConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJNetworkingConst.m; sourceTree = "<group>"; };
 		BF1C5EB72500E6EE002A6B3B /* RJNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJNetworking.h; sourceTree = "<group>"; };
+		BF254F912502168F002F5162 /* RJRequestSerializerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJRequestSerializerHelper.h; sourceTree = "<group>"; };
+		BF254F922502168F002F5162 /* RJRequestSerializerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJRequestSerializerHelper.m; sourceTree = "<group>"; };
+		BF98AD6A2501F34200AB1B9A /* RJDemoServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoServer.h; sourceTree = "<group>"; };
+		BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJDemoServer.m; sourceTree = "<group>"; };
+		BFC8105B250224E100AA835F /* RJURLResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJURLResponse.h; sourceTree = "<group>"; };
+		BFC8105C250224E100AA835F /* RJURLResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJURLResponse.m; sourceTree = "<group>"; };
+		BFC8105E25022B0200AA835F /* RJDemoAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoAPIManager.h; sourceTree = "<group>"; };
+		BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJDemoAPIManager.m; sourceTree = "<group>"; };
 		D6B37B627CEBD362AA8E72AD /* Pods-RJNetworkingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RJNetworkingDemo.release.xcconfig"; path = "Target Support Files/Pods-RJNetworkingDemo/Pods-RJNetworkingDemo.release.xcconfig"; sourceTree = "<group>"; };
 		EE41AC5FE6F11E9C49D808B8 /* Pods-RJNetworkingDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RJNetworkingDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RJNetworkingDemoTests/Pods-RJNetworkingDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				BF1C5EA12500E063002A6B3B /* RJNetworking */,
+				BF254F8E25021592002F5162 /* Network */,
+				BF98AD672501F30600AB1B9A /* Demo */,
 				BF1C5E6B2500E018002A6B3B /* AppDelegate.h */,
 				BF1C5E6C2500E018002A6B3B /* AppDelegate.m */,
 				BF1C5E712500E018002A6B3B /* ViewController.h */,
@@ -168,8 +182,6 @@
 				BF1C5E792500E01A002A6B3B /* LaunchScreen.storyboard */,
 				BF1C5E7C2500E01A002A6B3B /* Info.plist */,
 				BF1C5E7D2500E01A002A6B3B /* main.m */,
-				BF1C5EA22500E077002A6B3B /* RJDemoViewController.h */,
-				BF1C5EA32500E077002A6B3B /* RJDemoViewController.m */,
 			);
 			path = RJNetworkingDemo;
 			sourceTree = "<group>";
@@ -200,7 +212,7 @@
 				BF1C5EB52500E6DE002A6B3B /* RJNetworkingConst.m */,
 				BF1C5EA52500E1D0002A6B3B /* Servers */,
 				BF1C5EAA2500E2F8002A6B3B /* Components */,
-				BF1C5EAB2500E305002A6B3B /* Categories */,
+				BF1C5EAB2500E305002A6B3B /* UIKit */,
 			);
 			path = RJNetworking;
 			sourceTree = "<group>";
@@ -218,17 +230,19 @@
 		BF1C5EAA2500E2F8002A6B3B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BFC8105A250224D200AA835F /* URLResponse */,
+				BF254F9025021662002F5162 /* Helper */,
 				BF1C5EAC2500E426002A6B3B /* BaseAPIManager */,
 				BF1C5EAD2500E43F002A6B3B /* APIProxy */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		BF1C5EAB2500E305002A6B3B /* Categories */ = {
+		BF1C5EAB2500E305002A6B3B /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Categories;
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		BF1C5EAC2500E426002A6B3B /* BaseAPIManager */ = {
@@ -247,6 +261,68 @@
 				BF1C5EB22500E482002A6B3B /* RJAPIProxy.m */,
 			);
 			path = APIProxy;
+			sourceTree = "<group>";
+		};
+		BF254F8E25021592002F5162 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BF98AD682501F31200AB1B9A /* Servers */,
+				BF254F8F250215E1002F5162 /* APIManager */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		BF254F8F250215E1002F5162 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				BFC8105E25022B0200AA835F /* RJDemoAPIManager.h */,
+				BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
+		BF254F9025021662002F5162 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BF254F912502168F002F5162 /* RJRequestSerializerHelper.h */,
+				BF254F922502168F002F5162 /* RJRequestSerializerHelper.m */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		BF98AD672501F30600AB1B9A /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				BF98AD692501F31A00AB1B9A /* ViewControllers */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		BF98AD682501F31200AB1B9A /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+				BF98AD6A2501F34200AB1B9A /* RJDemoServer.h */,
+				BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */,
+			);
+			path = Servers;
+			sourceTree = "<group>";
+		};
+		BF98AD692501F31A00AB1B9A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF1C5EA22500E077002A6B3B /* RJDemoViewController.h */,
+				BF1C5EA32500E077002A6B3B /* RJDemoViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BFC8105A250224D200AA835F /* URLResponse */ = {
+			isa = PBXGroup;
+			children = (
+				BFC8105B250224E100AA835F /* RJURLResponse.h */,
+				BFC8105C250224E100AA835F /* RJURLResponse.m */,
+			);
+			path = URLResponse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,13 +547,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF1C5E732500E018002A6B3B /* ViewController.m in Sources */,
+				BF254F932502168F002F5162 /* RJRequestSerializerHelper.m in Sources */,
+				BFC8105D250224E100AA835F /* RJURLResponse.m in Sources */,
 				BF1C5EB62500E6DE002A6B3B /* RJNetworkingConst.m in Sources */,
+				BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */,
 				BF1C5EB32500E482002A6B3B /* RJAPIProxy.m in Sources */,
 				BF1C5EA42500E077002A6B3B /* RJDemoViewController.m in Sources */,
 				BF1C5EA92500E2D5002A6B3B /* RJServerFactory.m in Sources */,
 				BF1C5E6D2500E018002A6B3B /* AppDelegate.m in Sources */,
 				BF1C5E7E2500E01A002A6B3B /* main.m in Sources */,
 				BF1C5EB02500E478002A6B3B /* RJBaseAPIManager.m in Sources */,
+				BFC8106025022B0200AA835F /* RJDemoAPIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RJNetworkingConst.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) RJServerAPIEnvironment environment;
 /// 基本URL
 @property (nonatomic, copy) NSString *baseURL;
+
+
+- (nullable NSMutableURLRequest *)requestWithRequestType:(RJAPIManagerRequestType)requestType URLPath:(NSString *)urlPath parameters:(nullable id)parameters  requestSerializationType:(RJAPIManagerRequestSerializerType)requestSerializationType error:(NSError * _Nullable __autoreleasing *)error;
+
+@optional
+
+/// 会话管理者
+@property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
 
 @end

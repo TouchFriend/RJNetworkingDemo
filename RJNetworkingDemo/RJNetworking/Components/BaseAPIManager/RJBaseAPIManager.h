@@ -7,10 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RJNetworkingConst.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RJBaseAPIManager : NSObject
+
+/// 代理
+@property (nonatomic, weak, nullable) id <RJAPIManagerCallbackDelegate> delegate;
+/// url路径
+@property (nonatomic, copy) NSString *urlPath;
+/// 服务器标识符（服务器类名）
+@property (nonatomic, copy) NSString *serverIdentifier;
+/// 请求类型 默认POST
+@property (nonatomic, assign) RJAPIManagerRequestType requestType;
+/// 请求序列化类型 默认HTTP
+@property (nonatomic, assign) RJAPIManagerRequestSerializerType requestSerializerType;
+/// 请求头
+@property (nonatomic, strong) NSDictionary<NSString *,NSString *> *headers;
+
+- (NSInteger)loadDataWithParameters:(id)parameters;
 
 @end
 
