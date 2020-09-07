@@ -12,11 +12,29 @@
 
 @interface RJBaseAPIManager ()
 
+/// 请求ID列表
+@property (nonatomic, strong) NSMutableArray *requestIDList;
+
 @end
 
 @implementation RJBaseAPIManager
 
+#pragma mark - Life Cycle
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    [self cancelAllRequests];
+    self.requestIDList = nil;
+}
+
+#pragma mark - Public Methods
+
 - (NSInteger)loadDataWithParameters:(id)parameters {
+    if (parameters && ![parameters isKindOfClass:[NSDictionary class]] && ![parameters isKindOfClass:[NSArray class]]) {
+        NSAssert(NO, @"请求参数的类型必须是NSDictionary或者NSArray");
+        return 0;
+    }
+    
     id <RJServerProtocol> server = [[RJServerFactory sharedInstance] serverWithIdentifier:self.serverIdentifier];
     NSError *serializerError = nil;
     NSMutableURLRequest *request = [server requestWithRequestType:self.requestType URLPath:self.urlPath parameters:parameters requestSerializationType:self.requestSerializerType error:&serializerError];
@@ -31,9 +49,49 @@
         [request setValue:self.headers[headerField] forHTTPHeaderField:headerField];
     }
     
-    NSNumber *requestID = [[RJAPIProxy sharedInstance] callApiWithRequest:request];
+    __weak typeof(self) weakSelf = self;
+    NSNumber *requestID = [[RJAPIProxy sharedInstance] callApiWithRequest:request success:^(RJURLResponse * _Nonnull response) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf successOnCallingAPI:response];
+    } fail:^(RJURLResponse * _Nonnull response) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf failOnCallingAPI:response];
+    }];
     NSLog(@"requestID:%@", requestID);
-    return 0;
+    [self.requestIDList addObject:requestID];
+    return requestID.integerValue;
+}
+
+- (void)cancelRequestWithRequestID:(NSInteger)requestID {
+    [self.requestIDList removeObject:@(requestID)];
+    [[RJAPIProxy sharedInstance] cancelRequestWithRequestID:@(requestID)];
+}
+
+- (void)cancelAllRequests {
+    [[RJAPIProxy sharedInstance] cancelRequestWithRequestIDList:self.requestIDList];
+    [self.requestIDList removeAllObjects];
+}
+
+#pragma mark - Private Methods
+
+- (void)successOnCallingAPI:(RJURLResponse *)response {
+    self.response = response;
+    if (self.successBlock) {
+        self.successBlock(self);
+    }
+    if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
+        [self.delegate managerCallAPIDidSuccess:self];
+    }
+}
+
+- (void)failOnCallingAPI:(RJURLResponse *)response {
+    self.response = response;
+    if (self.failBlock) {
+        self.failBlock(self);
+    }
+    if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
+        [self.delegate managerCallAPIDidFailed:self];
+    }
 }
 
 #pragma mark - Property Methods
@@ -44,6 +102,13 @@
 
 - (RJAPIManagerRequestSerializerType)requestSerializerType {
     return RJAPIManagerRequestSerializerTypeHTTP;
+}
+
+- (NSMutableArray *)requestIDList {
+    if (!_requestIDList) {
+        _requestIDList = [NSMutableArray array];
+    }
+    return _requestIDList;
 }
 
 @end

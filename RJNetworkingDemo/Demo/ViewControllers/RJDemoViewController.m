@@ -13,6 +13,8 @@
 
 /// <#Desription#>
 @property (nonatomic, strong) RJDemoAPIManager *demoAPIManager;
+/// <#Desription#>
+@property (nonatomic, assign) NSInteger requestID;
 
 
 @end
@@ -24,20 +26,56 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    UIButton *startBtn = [self getTempButton];
+    [self.view addSubview:startBtn];
+    startBtn.bounds = CGRectMake(0, 0, 100, 50);
+    startBtn.center = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    [startBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(startBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *stopBtn = [self getTempButton];
+    [self.view addSubview:stopBtn];
+    stopBtn.bounds = CGRectMake(0, 0, 100, 50);
+    stopBtn.center = CGPointMake(self.view.center.x, self.view.center.y + 50);
+    [stopBtn setTitle:@"停止" forState:UIControlStateNormal];
+    [stopBtn addTarget:self action:@selector(stopBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.demoAPIManager loadDataWithParameters:nil];
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
+
+- (UIButton *)getTempButton {
+    UIButton *tempBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    tempBtn.backgroundColor = [UIColor orangeColor];
+    [tempBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    tempBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    return tempBtn;
+}
+
+- (void)startBtnClick {
+    self.demoAPIManager.successBlock = ^(RJBaseAPIManager * _Nonnull apiManager) {
+        NSLog(@"成功闭包");
+    };
+    self.demoAPIManager.failBlock = ^(RJBaseAPIManager * _Nonnull apiManager) {
+        NSLog(@"失败闭包");
+    };
+    self.requestID = [self.demoAPIManager loadDataWithUserKey:@"test"];
+}
+
+- (void)stopBtnClick {
+    [self.demoAPIManager cancelRequestWithRequestID:self.requestID];
 }
 
 #pragma mark - RJAPIManagerCallbackDelegate Methods
 
 - (void)managerCallAPIDidSuccess:(RJBaseAPIManager *)manager {
-    NSLog(@"成功");
+    NSLog(@"成功:%@", manager.response.responseObject);
 }
 
 - (void)managerCallAPIDidFailed:(RJBaseAPIManager *)manager {
-    NSLog(@"失败");
+    NSLog(@"失败：%@\n%@", manager.response.responseObject, manager.response.error);
 }
 
 #pragma mark - Property Methods

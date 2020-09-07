@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RJDemoViewController.h"
+#import "RJRootViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    RJDemoViewController *vc = [[RJDemoViewController alloc] init];
+    RJRootViewController *vc = [[RJRootViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

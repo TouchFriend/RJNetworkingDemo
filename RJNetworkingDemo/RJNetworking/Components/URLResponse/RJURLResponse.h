@@ -12,6 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RJURLResponse : NSObject
 
+/// <#Desription#>
+@property (nonatomic, strong) id responseObject;
+/// <#Desription#>
+@property (nonatomic, assign) NSInteger requestID;
+/// <#Desription#>
+@property (nonatomic, strong) NSURLRequest *request;
+/// <#Desription#>
+@property (nonatomic, strong) NSError *error;
+
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

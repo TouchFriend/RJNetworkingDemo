@@ -11,6 +11,14 @@
 
 @implementation RJDemoAPIManager
 
+- (NSInteger)loadDataWithUserKey:(NSString *)userKey {
+    NSParameterAssert(userKey);
+    NSDictionary *parameters = @{
+        @"userKey" : userKey
+    };
+    return [self loadDataWithParameters:parameters];
+}
+
 - (NSString *)urlPath {
     return @"public/characters";
 }

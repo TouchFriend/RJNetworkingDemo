@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RJURLResponse.h"
+
+typedef void(^RJAPIProxyCallbackBlock)(RJURLResponse * _Nonnull response);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +18,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// 单例
 + (instancetype)sharedInstance;
 
-- (NSNumber *)callApiWithRequest:(NSURLRequest *)request;
+/// 创建请求任务
+/// @param request NSURLRequest实例
+/// @param success 成功回调
+/// @param fail 失败回调
+- (NSNumber *)callApiWithRequest:(NSURLRequest *)request success:(RJAPIProxyCallbackBlock)success fail:(RJAPIProxyCallbackBlock)fail;
+
+/// 取消请求任务
+/// @param requestID 请求ID
+- (void)cancelRequestWithRequestID:(NSNumber *)requestID;
+
+/// 取消多个请求任务
+/// @param requestIDList 请求ID
+- (void)cancelRequestWithRequestIDList:(NSArray *)requestIDList;
 
 @end
 

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "RJNetworkingConst.h"
+#import "RJURLResponse.h"
+
+typedef void(^RJAPIManagerCallbackBlock)(RJBaseAPIManager * _Nonnull apiManager);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +29,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// 请求头
 @property (nonatomic, strong) NSDictionary<NSString *,NSString *> *headers;
 
-- (NSInteger)loadDataWithParameters:(id)parameters;
+/// 响应
+@property (nonatomic, strong) RJURLResponse *response;
+/// 成功回调闭包
+@property (nonatomic, copy) RJAPIManagerCallbackBlock successBlock;
+/// 失败回调闭包
+@property (nonatomic, copy) RJAPIManagerCallbackBlock failBlock;
+
+
+
+- (NSInteger)loadDataWithParameters:(nullable id)parameters;
+
+- (void)cancelRequestWithRequestID:(NSInteger)requestID;
+
+- (void)cancelAllRequests;
 
 @end
 

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RJDemoAPIManager : RJBaseAPIManager
 
+- (NSInteger)loadDataWithUserKey:(NSString *)userKey;
+
 @end
 
 NS_ASSUME_NONNULL_END
