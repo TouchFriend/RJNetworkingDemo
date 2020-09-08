@@ -80,6 +80,7 @@
 #pragma mark - Private Methods
 
 - (void)successOnCallingAPI:(RJURLResponse *)response {
+    [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.successBlock) {
@@ -93,6 +94,7 @@
 }
 
 - (void)failOnCallingAPI:(RJURLResponse *)response {
+    [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.failBlock) {
