@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSMutableURLRequest *)requestWithRequestType:(RJAPIManagerRequestType)requestType URLPath:(NSString *)urlPath parameters:(nullable id)parameters  requestSerializationType:(RJAPIManagerRequestSerializerType)requestSerializationType error:(NSError * _Nullable __autoreleasing *)error;
 
+- (RJAPIManagerErrorType)validateResponseDataWithManager:(RJBaseAPIManager *)manager responseData:(id)response;
+
+- (BOOL)handleCommonErrorWithManager:(RJBaseAPIManager *)manager response:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType;
+
 @optional
 
 /// 会话管理者

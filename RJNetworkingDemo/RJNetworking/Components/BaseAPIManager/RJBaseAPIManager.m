@@ -60,7 +60,8 @@
         [strongSelf successOnCallingAPI:response];
     } fail:^(RJURLResponse * _Nonnull response) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf failOnCallingAPI:response];
+        RJAPIManagerErrorType errorType = [strongSelf responseStatusParseToAPIManagerErrorType:response.status];
+        [strongSelf failOnCallingAPI:response errorType:errorType];
     }];
     NSLog(@"requestID:%@", requestID);
     [self.requestIDList addObject:requestID];
@@ -93,7 +94,7 @@
     
 }
 
-- (void)failOnCallingAPI:(RJURLResponse *)response {
+- (void)failOnCallingAPI:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType {
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -104,6 +105,33 @@
             [self.delegate managerCallAPIDidFailed:self];
         }
     });
+}
+
+- (RJAPIManagerErrorType)responseStatusParseToAPIManagerErrorType:(RJURLResponseStatus)responseStatus {
+    RJAPIManagerErrorType errorType = RJAPIManagerErrorTypeNoNetwork;
+    switch (responseStatus) {
+        case RJURLResponseStatusErrorTimeout:
+        {
+            errorType = RJAPIManagerErrorTypeTimeout;
+        }
+            break;
+        case RJURLResponseStatusErrorCanceled:
+        {
+            errorType = RJAPIManagerErrorTypeCanceled;
+        }
+            break;
+        case RJURLResponseStatusErrorNoNetwork:
+        {
+            errorType = RJAPIManagerErrorTypeNoNetwork;
+        }
+            break;
+        default:
+        {
+            errorType = RJAPIManagerErrorTypeNoNetwork;
+        }
+            break;
+    }
+    return errorType;
 }
 
 #pragma mark - Property Methods

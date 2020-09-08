@@ -40,11 +40,7 @@
         NSNumber *requestID = [NSNumber numberWithInteger:task.taskIdentifier];
         [weakSelf.dispatchTable removeObjectForKey:requestID];
         
-        RJURLResponse *urlResponse = [[RJURLResponse alloc] init];
-        urlResponse.responseObject = responseObject;
-        urlResponse.request = request;
-        urlResponse.requestID = requestID.integerValue;
-        urlResponse.error = error;
+        RJURLResponse *urlResponse = [[RJURLResponse alloc] initWithRequestID:requestID request:request responseObject:responseObject error:error];
         if (!error) {
             if (success) {
                 success(urlResponse);

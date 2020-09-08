@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class RJBaseAPIManager;
+@class RJBaseAPIManager, RJURLResponse;
 
 /// 服务器api环境
 typedef NS_ENUM(NSUInteger, RJServerAPIEnvironment) {
@@ -33,6 +33,14 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerRequestSerializerType) {
     RJAPIManagerRequestSerializerTypeJSON = 0,                //  JSON
     RJAPIManagerRequestSerializerTypeHTTP,                    //  form-data
     RJAPIManagerRequestSerializerTypePropertyList             //  XML
+};
+
+typedef NS_ENUM(NSUInteger, RJAPIManagerErrorType) {
+    RJAPIManagerErrorTypeSuccess = 0,
+    RJAPIManagerErrorTypeNoNetwork,
+    RJAPIManagerErrorTypeCanceled,
+    RJAPIManagerErrorTypeTimeout,
+    RJAPIManagerErrorTypeNoError
 };
 
 @protocol RJAPIManagerCallbackDelegate <NSObject>
