@@ -22,15 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSMutableURLRequest *)requestWithRequestType:(RJAPIManagerRequestType)requestType URLPath:(NSString *)urlPath parameters:(nullable id)parameters  requestSerializationType:(RJAPIManagerRequestSerializerType)requestSerializationType error:(NSError * _Nullable __autoreleasing *)error;
 
-- (RJAPIManagerErrorType)validateResponseDataWithManager:(RJBaseAPIManager *)manager responseData:(id)response;
-
+/// 如果检查错误之后，需要继续走fail路径上报到业务层的，return YES。（例如网络错误等，需要业务层弹框）    如果检查错误之后，不需要继续走fail路径上报到业务层的，return NO。（例如用户token失效，此时挂起API，调用刷新token的API，成功之后再重新调用原来的API。那么这种情况就不需要继续走fail路径上报到业务。） 
+/// @param manager RJBaseAPIManager对象
+/// @param response 响应对象
+/// @param errorType 错误类型
 - (BOOL)handleCommonErrorWithManager:(RJBaseAPIManager *)manager response:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType;
 
 @optional
 
 /// 会话管理者
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
-
 
 @end
 

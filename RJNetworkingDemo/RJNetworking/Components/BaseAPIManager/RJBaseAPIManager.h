@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id <RJAPIManagerCallbackDelegate> delegate;
 /// 参数代理
 @property (nonatomic, weak, nullable) id <RJAPIManagerParametersSource> parametersSource;
+/// 数据验证器
+@property (nonatomic, weak, nullable) id <RJAPIManagerValidator> validator;
 /// url路径
 @property (nonatomic, copy) NSString *urlPath;
 /// 服务器标识符（服务器类名）
@@ -33,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;
+/// 错误类型
+@property (nonatomic, assign, readonly) RJAPIManagerErrorType errorType;
+/// 错误信息
+@property (nonatomic, copy, readonly) NSString *_Nullable errorMessage;
+
 /// 成功回调闭包
 @property (nonatomic, copy) RJAPIManagerCallbackBlock successBlock;
 /// 失败回调闭包

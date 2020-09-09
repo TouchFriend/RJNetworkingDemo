@@ -36,11 +36,15 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerRequestSerializerType) {
 };
 
 typedef NS_ENUM(NSUInteger, RJAPIManagerErrorType) {
-    RJAPIManagerErrorTypeSuccess = 0,
+    RJAPIManagerErrorTypeDefault = 0,
+    RJAPIManagerErrorTypeNeedLogin,
+    RJAPIManagerErrorTypeSuccess,
     RJAPIManagerErrorTypeNoNetwork,
     RJAPIManagerErrorTypeCanceled,
     RJAPIManagerErrorTypeTimeout,
-    RJAPIManagerErrorTypeNoError
+    RJAPIManagerErrorTypeNoError,
+    RJAPIManagerErrorTypeParameterError,
+    RJAPIManagerErrorTypeResponseDataError
 };
 
 @protocol RJAPIManagerCallbackDelegate <NSObject>
@@ -52,6 +56,14 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerErrorType) {
 
 @protocol RJAPIManagerParametersSource <NSObject>
 
-- (id _Nullable)parametersForAPI:(RJBaseAPIManager * _Nonnull)manager;
+- (id _Nullable)parametersForAPI:(RJBaseAPIManager *_Nonnull)manager;
+
+@end
+
+@protocol RJAPIManagerValidator <NSObject>
+
+- (RJAPIManagerErrorType)manager:(RJBaseAPIManager *_Nonnull)manager isCorrectWithParameterData:(id _Nullable)parameterData;
+
+- (RJAPIManagerErrorType)manager:(RJBaseAPIManager *_Nonnull)manager isCorrectWithResponseData:(id _Nullable)responseData;
 
 @end
