@@ -17,11 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RJBaseAPIManager : NSObject
 
 /// 代理
-@property (nonatomic, weak, nullable) id <RJAPIManagerCallbackDelegate> delegate;
+@property (nonatomic, weak) id <RJAPIManagerCallbackDelegate> _Nullable delegate;
 /// 参数代理
-@property (nonatomic, weak, nullable) id <RJAPIManagerParametersSource> parametersSource;
+@property (nonatomic, weak) id <RJAPIManagerParametersSource> _Nullable parametersSource;
 /// 数据验证器
-@property (nonatomic, weak, nullable) id <RJAPIManagerValidator> validator;
+@property (nonatomic, weak) id <RJAPIManagerValidator> _Nullable validator;
+/// 拦截器
+@property (nonatomic, weak) id <RJAPIManagerInterceptor> _Nullable interceptor;
+
 /// url路径
 @property (nonatomic, copy) NSString *urlPath;
 /// 服务器标识符（服务器类名）
@@ -65,3 +68,25 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+
+@interface RJBaseAPIManager (InnerInterceptor)
+
+/// 调用API之前，会调用此方法。
+/// @param parameters 请求参数
+/// @return 返回YES，调用API。返回NO，不调用API。
+- (BOOL)shouldCallAPIWithParameters:(id _Nullable)parameters;
+
+/// 调用API之后，会调用此方法
+/// @param parameters 请求参数
+- (void)afterCallAPIWithParameters:(id _Nullable)parameters;
+
+- (BOOL)beforePerformSuccessWithResponse:(RJURLResponse *_Nonnull)response;
+
+- (void)afterPerformSuccessWithResponse:(RJURLResponse *_Nonnull)response;
+
+- (BOOL)beforePerformFailWithResponse:(RJURLResponse *_Nonnull)response;
+
+- (void)afterPerformFailWithResponse:(RJURLResponse *_Nonnull)response;
+
+@end

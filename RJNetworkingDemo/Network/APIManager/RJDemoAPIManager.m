@@ -8,11 +8,14 @@
 
 #import "RJDemoAPIManager.h"
 #import "RJDemoServer.h"
+#import "RJDemoInterceptor.h"
 
-@interface RJDemoAPIManager () <RJAPIManagerParametersSource>
+@interface RJDemoAPIManager () <RJAPIManagerParametersSource, RJAPIManagerValidator>
 
 /// 参数
 @property (nonatomic, strong) id parameters;
+/// <#Desription#>
+@property (nonatomic, strong) RJDemoInterceptor *demoInterceptor;
 
 
 @end
@@ -22,7 +25,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.demoInterceptor = [[RJDemoInterceptor alloc] init];
         self.parametersSource = self;
+        self.validator = self;
+        self.interceptor = self.demoInterceptor;
     }
     return self;
 }
@@ -40,6 +46,16 @@
 
 - (id)parametersForAPI:(RJBaseAPIManager *)manager {
     return self.parameters;
+}
+
+#pragma mark - RJAPIManagerValidator Methods
+
+- (RJAPIManagerErrorType)manager:(RJBaseAPIManager *)manager isCorrectWithParameterData:(id)parameterData {
+    return RJAPIManagerErrorTypeNoError;
+}
+
+- (RJAPIManagerErrorType)manager:(RJBaseAPIManager *)manager isCorrectWithResponseData:(id)responseData {
+    return RJAPIManagerErrorTypeNoError;
 }
 
 #pragma mark - Override Methods

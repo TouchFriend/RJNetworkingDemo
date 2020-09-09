@@ -52,6 +52,10 @@
         return 0;
     }
     
+    if (![self shouldCallAPIWithParameters:parameters]) {
+        return 0;
+    }
+    
     // 验证参数是否符合预期
     RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithParameterData:parameters];
     if (errorType != RJAPIManagerErrorTypeNoError) {
@@ -84,6 +88,7 @@
     }];
     NSLog(@"requestID:%@", requestID);
     [self.requestIDList addObject:requestID];
+    [self afterCallAPIWithParameters:parameters];
     return requestID.integerValue;
 }
 
@@ -110,14 +115,22 @@
         return;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.successBlock) {
-            self.successBlock(self);
-        }
-        if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
-            [self.delegate managerCallAPIDidSuccess:self];
-        }
-    });
+    if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
+        [self.interceptor manager:self didReceiveResponse:response];
+    }
+    
+    if ([self beforePerformSuccessWithResponse:response]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.successBlock) {
+                self.successBlock(self);
+            }
+            if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
+                [self.delegate managerCallAPIDidSuccess:self];
+            }
+        });
+    }
+    
+    [self afterPerformSuccessWithResponse:response];
     
 }
 
@@ -132,14 +145,22 @@
         return;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.failBlock) {
-            self.failBlock(self);
-        }
-        if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
-            [self.delegate managerCallAPIDidFailed:self];
-        }
-    });
+    if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
+        [self.interceptor manager:self didReceiveResponse:response];
+    }
+    
+    if ([self beforePerformFailWithResponse:response]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.failBlock) {
+                self.failBlock(self);
+            }
+            if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
+                [self.delegate managerCallAPIDidFailed:self];
+            }
+        });
+    }
+    
+    [self afterPerformFailWithResponse:response];
 }
 
 - (RJAPIManagerErrorType)responseStatusParseToAPIManagerErrorType:(RJURLResponseStatus)responseStatus {
@@ -167,6 +188,63 @@
             break;
     }
     return errorType;
+}
+
+#pragma mark - Intercetpor Methods
+
+/*
+   拦截器的功能可以由子类通过继承实现，也可以由其它对象实现,两种做法可以共存
+   当两种情况共存的时候，子类重载的方法一定要调用一下super
+   然后它们的调用顺序是BaseManager会先调用子类重载的实现，再调用外部interceptor的实现
+   
+   notes:
+       正常情况下，拦截器是通过代理的方式实现的，因此可以不需要以下这些代码
+       但是为了将来拓展方便，如果在调用拦截器之前manager又希望自己能够先做一些事情，所以这些方法还是需要能够被继承重载的
+       所有重载的方法，都要调用一下super,这样才能保证外部interceptor能够被调到
+       这就是decorate pattern
+*/
+
+- (BOOL)shouldCallAPIWithParameters:(id)parameters {
+    BOOL result = YES;
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:shouldCallAPIWithParameters:)]) {
+        result = [self.interceptor manager:self shouldCallAPIWithParameters:parameters];
+    }
+    return result;
+}
+
+- (void)afterCallAPIWithParameters:(id)parameters {
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterCallAPIWithParameters:)]) {
+        [self.interceptor manager:self afterCallAPIWithParameters:parameters];
+    }
+}
+
+- (BOOL)beforePerformSuccessWithResponse:(RJURLResponse *)response {
+    BOOL result = YES;
+    self.errorType = RJAPIManagerErrorTypeSuccess;
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:beforePerformSuccessWithResponse:)]) {
+        result = [self.interceptor manager:self beforePerformSuccessWithResponse:response];
+    }
+    return result;
+}
+
+- (void)afterPerformSuccessWithResponse:(RJURLResponse *)response {
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterPerformSuccessWithResponse:)]) {
+        [self.interceptor manager:self afterPerformSuccessWithResponse:response];
+    }
+}
+
+- (BOOL)beforePerformFailWithResponse:(RJURLResponse *)response {
+    BOOL result = YES;
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:beforePerformFailWithResponse:)]) {
+        result = [self.interceptor manager:self beforePerformFailWithResponse:response];
+    }
+    return result;
+}
+
+- (void)afterPerformFailWithResponse:(RJURLResponse *)response {
+    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterPerformFailWithResponse:)]) {
+        [self.interceptor manager:self afterPerformFailWithResponse:response];
+    }
 }
 
 #pragma mark - Property Methods

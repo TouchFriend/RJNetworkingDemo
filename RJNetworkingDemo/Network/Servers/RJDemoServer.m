@@ -74,4 +74,8 @@
     return request;
 }
 
+- (BOOL)handleCommonErrorWithManager:(RJBaseAPIManager *)manager response:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType {
+    return YES;
+}
+
 @end

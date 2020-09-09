@@ -28,6 +28,7 @@
 		BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */; };
 		BFC8105D250224E100AA835F /* RJURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC8105C250224E100AA835F /* RJURLResponse.m */; };
 		BFC8106025022B0200AA835F /* RJDemoAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */; };
+		BFCA65572508E06900EA045F /* RJDemoInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA65562508E06900EA045F /* RJDemoInterceptor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,8 @@
 		BFC8105C250224E100AA835F /* RJURLResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJURLResponse.m; sourceTree = "<group>"; };
 		BFC8105E25022B0200AA835F /* RJDemoAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoAPIManager.h; sourceTree = "<group>"; };
 		BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJDemoAPIManager.m; sourceTree = "<group>"; };
+		BFCA65552508E06900EA045F /* RJDemoInterceptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoInterceptor.h; sourceTree = "<group>"; };
+		BFCA65562508E06900EA045F /* RJDemoInterceptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJDemoInterceptor.m; sourceTree = "<group>"; };
 		D6B37B627CEBD362AA8E72AD /* Pods-RJNetworkingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RJNetworkingDemo.release.xcconfig"; path = "Target Support Files/Pods-RJNetworkingDemo/Pods-RJNetworkingDemo.release.xcconfig"; sourceTree = "<group>"; };
 		EE41AC5FE6F11E9C49D808B8 /* Pods-RJNetworkingDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RJNetworkingDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RJNetworkingDemoTests/Pods-RJNetworkingDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +272,7 @@
 		BF254F8E25021592002F5162 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				BFCA65542508E04D00EA045F /* Interceptor */,
 				BF98AD682501F31200AB1B9A /* Servers */,
 				BF254F8F250215E1002F5162 /* APIManager */,
 			);
@@ -328,6 +332,15 @@
 				BFC8105C250224E100AA835F /* RJURLResponse.m */,
 			);
 			path = URLResponse;
+			sourceTree = "<group>";
+		};
+		BFCA65542508E04D00EA045F /* Interceptor */ = {
+			isa = PBXGroup;
+			children = (
+				BFCA65552508E06900EA045F /* RJDemoInterceptor.h */,
+				BFCA65562508E06900EA045F /* RJDemoInterceptor.m */,
+			);
+			path = Interceptor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -555,6 +568,7 @@
 				BF254F932502168F002F5162 /* RJRequestSerializerHelper.m in Sources */,
 				BFC8105D250224E100AA835F /* RJURLResponse.m in Sources */,
 				BF1C5EB62500E6DE002A6B3B /* RJNetworkingConst.m in Sources */,
+				BFCA65572508E06900EA045F /* RJDemoInterceptor.m in Sources */,
 				BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */,
 				BF1C5EB32500E482002A6B3B /* RJAPIProxy.m in Sources */,
 				BF8AD2AA2505E03900A37D99 /* RJRootViewController.m in Sources */,

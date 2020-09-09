@@ -67,3 +67,19 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerErrorType) {
 - (RJAPIManagerErrorType)manager:(RJBaseAPIManager *_Nonnull)manager isCorrectWithResponseData:(id _Nullable)responseData;
 
 @end
+
+@protocol RJAPIManagerInterceptor <NSObject>
+
+@optional
+
+- (BOOL)manager:(RJBaseAPIManager *_Nonnull)manager shouldCallAPIWithParameters:(id _Nullable)parameters;
+- (void)manager:(RJBaseAPIManager *_Nonnull)manager afterCallAPIWithParameters:(id _Nullable)parameters;
+- (void)manager:(RJBaseAPIManager *_Nonnull)manager didReceiveResponse:(RJURLResponse *_Nonnull)response;
+
+- (BOOL)manager:(RJBaseAPIManager *_Nonnull)manager beforePerformSuccessWithResponse:(RJURLResponse *_Nonnull)response;
+- (void)manager:(RJBaseAPIManager *_Nonnull)manager afterPerformSuccessWithResponse:(RJURLResponse *_Nonnull)response;
+
+- (BOOL)manager:(RJBaseAPIManager *_Nonnull)manager beforePerformFailWithResponse:(RJURLResponse *_Nonnull)response;
+- (void)manager:(RJBaseAPIManager *_Nonnull)manager afterPerformFailWithResponse:(RJURLResponse *_Nonnull)response;
+
+@end
