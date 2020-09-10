@@ -14,10 +14,6 @@
 
 /// 请求ID列表
 @property (nonatomic, strong) NSMutableArray *requestIDList;
-/// 错误类型
-@property (nonatomic, assign, readwrite) RJAPIManagerErrorType errorType;
-/// 错误信息
-@property (nonatomic, copy, readwrite) NSString *_Nullable errorMessage;
 
 @end
 
@@ -114,8 +110,6 @@
         [self failOnCallingAPI:response errorType:errorType];
         return;
     }
-    
-    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {

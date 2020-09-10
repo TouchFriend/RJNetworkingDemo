@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;
 /// 错误类型
-@property (nonatomic, assign, readonly) RJAPIManagerErrorType errorType;
+@property (nonatomic, assign) RJAPIManagerErrorType errorType;
 /// 错误信息
-@property (nonatomic, copy, readonly) NSString *_Nullable errorMessage;
+@property (nonatomic, copy) NSString *_Nullable errorMessage;
 
 /// 成功回调闭包
 @property (nonatomic, copy) RJAPIManagerCallbackBlock successBlock;

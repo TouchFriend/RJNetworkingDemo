@@ -8,6 +8,7 @@
 
 #import "RJDemoServer.h"
 #import "RJRequestSerializerHelper.h"
+#import "RJBaseAPIManager.h"
 
 @implementation RJDemoServer
 
@@ -75,6 +76,34 @@
 }
 
 - (BOOL)handleCommonErrorWithManager:(RJBaseAPIManager *)manager response:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType {
+    // 检查是否是取消请求
+    
+    // 检查是否是session失效
+    
+    // 检查是否是返回数据的格式错误，并给errorMessage赋值：RJAPIManagerErrorTypeResponseDataError
+    
+    
+    // 常规错误
+    switch (errorType) {
+        case RJAPIManagerErrorTypeNoNetwork:
+        {
+            manager.errorMessage = @"无网络连接，请检查网络";
+        }
+            break;
+        case RJAPIManagerErrorTypeTimeout:
+        {
+            manager.errorMessage = @"请求超时";
+        }
+            break;
+        case RJAPIManagerErrorTypeCanceled:
+        {
+            manager.errorMessage = @"您已取消";
+        }
+            break;
+            
+        default:
+            break;
+    }
     return YES;
 }
 
