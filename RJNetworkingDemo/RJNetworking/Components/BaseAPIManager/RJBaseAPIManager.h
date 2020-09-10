@@ -39,9 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;
 /// 错误类型
-@property (nonatomic, assign) RJAPIManagerErrorType errorType;
+@property (nonatomic, assign, readonly) RJAPIManagerErrorType errorType;
 /// 错误信息
-@property (nonatomic, copy) NSString *_Nullable errorMessage;
+@property (nonatomic, copy, readonly) NSString *_Nullable errorMessage;
+
+/// 缓存策略
+@property (nonatomic, assign) RJAPIManagerCachePolicy cachePolicy;
+/// 内存缓存时间，默认3 x 60
+@property (nonatomic, assign) NSTimeInterval memoryCacheSecond;
+/// 沙盒缓存时间，默认3 x 60
+@property (nonatomic, assign) NSTimeInterval diskCacheSecond;
+/// 是否忽略缓存 默认NO
+@property (nonatomic, assign) BOOL shouldIgnoreCache;
+
 
 /// 成功回调闭包
 @property (nonatomic, copy) RJAPIManagerCallbackBlock successBlock;
@@ -64,6 +74,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 取消所有请求
 - (void)cancelAllRequests;
+
+/// 更新错误类型
+/// @param errorType 新的错误类型
+- (void)updateErrorType:(RJAPIManagerErrorType)errorType;
+
+/// 更新错误信息
+/// @param errorMessage 新的错误信息
+- (void)updateErrorMessage:(NSString *)errorMessage;
 
 @end
 

@@ -30,10 +30,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 错误
 @property (nonatomic, strong, readonly) NSError *error;
 
+/// 原有的请求参数
+@property (nonatomic, copy) id originRequestParameters;
+/// 实际的请求参数
+@property (nonatomic, copy) id actualRequestParameters;
+
 /// 是否缓存
 @property (nonatomic, assign, getter=isCache, readonly) BOOL cache;
 
 - (instancetype)initWithRequestID:(NSNumber *)requestID request:(NSURLRequest *)request responseObject:(id _Nullable)responseObject error:(NSError *_Nullable)error;
+
+- (instancetype)initWithCachedResponseObject:(id)responseObject;
 
 @end
 

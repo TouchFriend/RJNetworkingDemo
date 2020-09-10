@@ -14,6 +14,10 @@
 
 /// 请求ID列表
 @property (nonatomic, strong) NSMutableArray *requestIDList;
+/// 错误类型
+@property (nonatomic, assign, readwrite) RJAPIManagerErrorType errorType;
+/// 错误信息
+@property (nonatomic, copy, readwrite) NSString *errorMessage;
 
 @end
 
@@ -25,6 +29,10 @@
     self = [super init];
     if (self) {
         self.errorType = RJAPIManagerErrorTypeDefault;
+        self.cachePolicy = RJAPIManagerCachePolicyNoCache;
+        self.memoryCacheSecond = 180;
+        self.diskCacheSecond = 180;
+        self.shouldIgnoreCache = NO;
     }
     return self;
 }
@@ -96,6 +104,14 @@
 - (void)cancelAllRequests {
     [[RJAPIProxy sharedInstance] cancelRequestWithRequestIDList:self.requestIDList];
     [self.requestIDList removeAllObjects];
+}
+
+- (void)updateErrorType:(RJAPIManagerErrorType)errorType {
+    self.errorType = errorType;
+}
+
+- (void)updateErrorMessage:(NSString *)errorMessage {
+    self.errorMessage = errorMessage;
 }
 
 #pragma mark - Private Methods

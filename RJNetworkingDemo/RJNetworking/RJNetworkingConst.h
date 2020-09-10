@@ -47,6 +47,12 @@ typedef NS_ENUM(NSUInteger, RJAPIManagerErrorType) {
     RJAPIManagerErrorTypeResponseDataError
 };
 
+typedef NS_OPTIONS(NSUInteger, RJAPIManagerCachePolicy) {
+    RJAPIManagerCachePolicyNoCache = 0,             // 不缓存
+    RJAPIManagerCachePolicyMemory = 1 << 0,         // 内存缓存
+    RJAPIManagerCachePolicyDisk = 1 << 1,           // 沙盒缓存
+};
+
 @protocol RJAPIManagerCallbackDelegate <NSObject>
 
 - (void)managerCallAPIDidSuccess:(RJBaseAPIManager *_Nonnull)manager;

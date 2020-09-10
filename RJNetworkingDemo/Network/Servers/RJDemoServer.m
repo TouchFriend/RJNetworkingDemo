@@ -9,6 +9,7 @@
 #import "RJDemoServer.h"
 #import "RJRequestSerializerHelper.h"
 #import "RJBaseAPIManager.h"
+#import "NSURLRequest+RJNetworkingAdd.h"
 
 @implementation RJDemoServer
 
@@ -70,7 +71,8 @@
     
     // 添加公有请求头
 //            [request setValue:@"" forHTTPHeaderField:@""];
-
+    request.originRequestParameters = parameters;
+    request.actualRequestParameters = parameters;
     
     return request;
 }
@@ -82,28 +84,29 @@
     
     // 检查是否是返回数据的格式错误，并给errorMessage赋值：RJAPIManagerErrorTypeResponseDataError
     
-    
+    NSString *errorMessage = nil;
     // 常规错误
     switch (errorType) {
         case RJAPIManagerErrorTypeNoNetwork:
         {
-            manager.errorMessage = @"无网络连接，请检查网络";
+            errorMessage = @"无网络连接，请检查网络";
         }
             break;
         case RJAPIManagerErrorTypeTimeout:
         {
-            manager.errorMessage = @"请求超时";
+            errorMessage = @"请求超时";
         }
             break;
         case RJAPIManagerErrorTypeCanceled:
         {
-            manager.errorMessage = @"您已取消";
+            errorMessage = @"您已取消";
         }
             break;
             
         default:
             break;
     }
+    [manager updateErrorMessage:errorMessage];
     return YES;
 }
 

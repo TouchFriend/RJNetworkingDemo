@@ -7,6 +7,7 @@
 //
 
 #import "RJURLResponse.h"
+#import "NSURLRequest+RJNetworkingAdd.h"
 
 @interface RJURLResponse ()
 
@@ -32,10 +33,25 @@
     if (self) {
         self.requestID = requestID.integerValue;
         self.request = request;
+        self.originRequestParameters = request.originRequestParameters;
+        self.actualRequestParameters = request.actualRequestParameters;
         self.responseObject = responseObject;
         self.error = error;
-        self.cache = NO;
         self.status = [self responseStatusForError:error];
+        self.cache = NO;
+    }
+    return self;
+}
+
+- (instancetype)initWithCachedResponseObject:(id)responseObject {
+    self = [super self];
+    if (self) {
+        self.requestID = 0;
+        self.request = nil;
+        self.responseObject = responseObject;
+        self.error = nil;
+        self.status = [self responseStatusForError:nil];
+        self.cache = YES;
     }
     return self;
 }
@@ -43,35 +59,35 @@
 #pragma mark - Private Methods
 
 - (RJURLResponseStatus)responseStatusForError:(NSError *)error {
-    if (error) {
-        RJURLResponseStatus status = RJURLResponseStatusErrorNoNetwork;
-        switch (error.code) {
-            case NSURLErrorTimedOut:
-            {
-                status = RJURLResponseStatusErrorTimeout;
-            }
-                break;
-            case NSURLErrorCancelled:
-            {
-                status = RJURLResponseStatusErrorCanceled;
-            }
-                break;
-            case NSURLErrorNotConnectedToInternet:
-            {
-                status = RJURLResponseStatusErrorNoNetwork;
-            }
-                break;
-                
-            default:
-            {
-                status = RJURLResponseStatusErrorNoNetwork;
-            }
-                break;
-        }
-        return status;
-    } else {
+    if (!error) {
         return RJURLResponseStatusSuccess;
     }
+    
+    RJURLResponseStatus status = RJURLResponseStatusErrorNoNetwork;
+    switch (error.code) {
+        case NSURLErrorTimedOut:
+        {
+            status = RJURLResponseStatusErrorTimeout;
+        }
+            break;
+        case NSURLErrorCancelled:
+        {
+            status = RJURLResponseStatusErrorCanceled;
+        }
+            break;
+        case NSURLErrorNotConnectedToInternet:
+        {
+            status = RJURLResponseStatusErrorNoNetwork;
+        }
+            break;
+            
+        default:
+        {
+            status = RJURLResponseStatusErrorNoNetwork;
+        }
+            break;
+    }
+    return status;
 }
 
 @end
