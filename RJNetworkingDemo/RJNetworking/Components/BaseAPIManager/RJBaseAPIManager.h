@@ -26,15 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <RJAPIManagerInterceptor> _Nullable interceptor;
 
 /// url路径
-@property (nonatomic, copy) NSString *urlPath;
+- (NSString *_Nonnull)urlPath;
 /// 服务器标识符（服务器类名）
-@property (nonatomic, copy) NSString *serverIdentifier;
+- (NSString *_Nonnull)serverIdentifier;
 /// 请求类型 默认POST
-@property (nonatomic, assign) RJAPIManagerRequestType requestType;
+- (RJAPIManagerRequestType)requestType;
 /// 请求序列化类型 默认HTTP
-@property (nonatomic, assign) RJAPIManagerRequestSerializerType requestSerializerType;
+- (RJAPIManagerRequestSerializerType)requestSerializerType;
 /// 请求头
-@property (nonatomic, strong) NSDictionary<NSString *,NSString *> *headers;
+@property (nonatomic, strong) NSDictionary<NSString *,NSString *> *_Nullable headers;
 
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;

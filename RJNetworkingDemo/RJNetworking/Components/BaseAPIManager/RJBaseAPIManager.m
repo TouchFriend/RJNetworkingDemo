@@ -115,23 +115,23 @@
         return;
     }
     
-    if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
-        [self.interceptor manager:self didReceiveResponse:response];
-    }
     
-    if ([self beforePerformSuccessWithResponse:response]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
+            [self.interceptor manager:self didReceiveResponse:response];
+        }
+        if ([self beforePerformSuccessWithResponse:response]) {
             if (self.successBlock) {
                 self.successBlock(self);
             }
             if ([self.delegate respondsToSelector:@selector(managerCallAPIDidSuccess:)]) {
                 [self.delegate managerCallAPIDidSuccess:self];
             }
-        });
-    }
-    
-    [self afterPerformSuccessWithResponse:response];
-    
+        }
+        
+        [self afterPerformSuccessWithResponse:response];
+    });
 }
 
 - (void)failOnCallingAPI:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType {
@@ -145,22 +145,21 @@
         return;
     }
     
-    if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
-        [self.interceptor manager:self didReceiveResponse:response];
-    }
-    
-    if ([self beforePerformFailWithResponse:response]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
+            [self.interceptor manager:self didReceiveResponse:response];
+        }
+        if ([self beforePerformFailWithResponse:response]) {
             if (self.failBlock) {
                 self.failBlock(self);
             }
             if ([self.delegate respondsToSelector:@selector(managerCallAPIDidFailed:)]) {
                 [self.delegate managerCallAPIDidFailed:self];
             }
-        });
-    }
-    
-    [self afterPerformFailWithResponse:response];
+        }
+        
+        [self afterPerformFailWithResponse:response];
+    });
 }
 
 - (RJAPIManagerErrorType)responseStatusParseToAPIManagerErrorType:(RJURLResponseStatus)responseStatus {
@@ -248,6 +247,14 @@
 }
 
 #pragma mark - Property Methods
+
+- (NSString *)urlPath {
+    return @"";
+}
+
+- (NSString *)serverIdentifier {
+    return @"";
+}
 
 - (RJAPIManagerRequestType)requestType {
     return RJAPIManagerRequestTypePost;
