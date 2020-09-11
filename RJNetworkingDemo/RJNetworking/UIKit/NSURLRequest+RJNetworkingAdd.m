@@ -9,25 +9,25 @@
 #import "NSURLRequest+RJNetworkingAdd.h"
 #import <ObjC/runtime.h>
 
-static void *RJOriginRequestParametersKey = &RJOriginRequestParametersKey;
-static void *RJActualRequestParametersKey = &RJActualRequestParametersKey;
+static const char RJOriginRequestParametersKey = '\0';
+static const char RJActualRequestParametersKey = '\0';
 
 @implementation NSURLRequest (RJNetworkingAdd)
 
 - (void)setOriginRequestParameters:(id)originRequestParameters {
-    objc_setAssociatedObject(self, RJOriginRequestParametersKey, originRequestParameters, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, &RJOriginRequestParametersKey, originRequestParameters, OBJC_ASSOCIATION_COPY);
 }
 
 - (id)originRequestParameters {
-    return objc_getAssociatedObject(self, RJOriginRequestParametersKey);
+    return objc_getAssociatedObject(self, &RJOriginRequestParametersKey);
 }
 
 - (void)setActualRequestParameters:(id)actualRequestParameters {
-    objc_setAssociatedObject(self, RJActualRequestParametersKey, actualRequestParameters, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, &RJActualRequestParametersKey, actualRequestParameters, OBJC_ASSOCIATION_COPY);
 }
 
 - (id)actualRequestParameters {
-    return objc_getAssociatedObject(self, RJActualRequestParametersKey);
+    return objc_getAssociatedObject(self, &RJActualRequestParametersKey);
 }
 
 
