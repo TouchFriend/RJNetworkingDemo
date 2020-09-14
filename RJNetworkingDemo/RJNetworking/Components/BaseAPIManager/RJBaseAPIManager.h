@@ -81,6 +81,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 取消所有请求
 - (void)cancelAllRequests;
 
+/// 如果需要在调用API之前额外添加一些参数，比如pageNumber和pageSize之类的就在这里添加。默认实现是直接返回parameters。
+/// @param parameters 原有的参数
+/// @return 参数
+- (id _Nullable)reformParameters:(id _Nullable)parameters;
+
 /// 更新错误类型
 /// @param errorType 新的错误类型
 - (void)updateErrorType:(RJAPIManagerErrorType)errorType;

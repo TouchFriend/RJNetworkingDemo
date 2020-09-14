@@ -79,4 +79,10 @@
     return RJAPIManagerRequestSerializerTypeHTTP;
 }
 
+- (NSDictionary *)reformParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *parametersM = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [parametersM setObject:@"addParameter" forKey:@"add"];
+    return [parametersM copy];
+}
+
 @end

@@ -60,12 +60,17 @@
         return 0;
     }
     
-    if (![self shouldCallAPIWithParameters:parameters]) {
+    id reformedParameters = [self reformParameters:parameters];
+    if (!reformedParameters) {
+        reformedParameters = @{};
+    }
+    
+    if (![self shouldCallAPIWithParameters:reformedParameters]) {
         return 0;
     }
     
     // 验证参数是否符合预期
-    RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithParameterData:parameters];
+    RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithParameterData:reformedParameters];
     if (errorType != RJAPIManagerErrorTypeNoError) {
         [self failOnCallingAPI:nil errorType:errorType];
         return 0;
@@ -74,12 +79,12 @@
     RJURLResponse *response = nil;
     // 检查是否有内存缓存
     if ((self.cachePolicy == RJAPIManagerCachePolicyMemory) && !self.shouldIgnoreCache) {
-        response = [[RJCacheCenter sharedInstance] fetchMemoryCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
+        response = [[RJCacheCenter sharedInstance] fetchMemoryCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:reformedParameters];
     }
     
     // 再检查是否有沙盒缓存
     if ((self.cachePolicy == RJAPIManagerCachePolicyDisk) && !self.shouldIgnoreCache) {
-        response = [[RJCacheCenter sharedInstance] fetchDiskCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
+        response = [[RJCacheCenter sharedInstance] fetchDiskCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:reformedParameters];
     }
     
     if (response) {
@@ -97,7 +102,7 @@
     self.isLoading = YES;
     id <RJServerProtocol> server = [[RJServerFactory sharedInstance] serverWithIdentifier:self.serverIdentifier];
     NSError *serializerError = nil;
-    NSMutableURLRequest *request = [server requestWithRequestType:self.requestType URLPath:self.urlPath parameters:parameters requestSerializationType:self.requestSerializerType error:&serializerError];
+    NSMutableURLRequest *request = [server requestWithRequestType:self.requestType URLPath:self.urlPath parameters:reformedParameters requestSerializationType:self.requestSerializerType error:&serializerError];
     
     if (serializerError) {
         NSLog(@"serializerError:%@", serializerError);
@@ -120,7 +125,7 @@
     }];
     NSLog(@"requestID:%@", requestID);
     [self.requestIDList addObject:requestID];
-    [self afterCallAPIWithParameters:parameters];
+    [self afterCallAPIWithParameters:reformedParameters];
     return requestID.integerValue;
 }
 
@@ -132,6 +137,10 @@
 - (void)cancelAllRequests {
     [[RJAPIProxy sharedInstance] cancelRequestWithRequestIDList:self.requestIDList];
     [self.requestIDList removeAllObjects];
+}
+
+- (id)reformParameters:(id)parameters {
+    return parameters;
 }
 
 - (void)updateErrorType:(RJAPIManagerErrorType)errorType {
