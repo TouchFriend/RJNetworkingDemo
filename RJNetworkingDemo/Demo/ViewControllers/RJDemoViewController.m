@@ -84,7 +84,7 @@
     if (!_demoAPIManager) {
         _demoAPIManager = [[RJDemoAPIManager alloc] init];
         _demoAPIManager.delegate = self;
-        _demoAPIManager.cachePolicy = RJAPIManagerCachePolicyDisk;
+        _demoAPIManager.cachePolicy = RJAPIManagerCachePolicyNoCache;
     }
     return _demoAPIManager;;
 }

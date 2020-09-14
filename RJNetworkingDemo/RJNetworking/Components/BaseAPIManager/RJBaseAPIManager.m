@@ -20,6 +20,8 @@
 @property (nonatomic, assign, readwrite) RJAPIManagerErrorType errorType;
 /// 错误信息
 @property (nonatomic, copy, readwrite) NSString *errorMessage;
+/// 是否正在加载
+@property (nonatomic, assign, readwrite) BOOL isLoading;
 
 @end
 
@@ -92,6 +94,7 @@
     }
     
     // 实际的网络请求
+    self.isLoading = YES;
     id <RJServerProtocol> server = [[RJServerFactory sharedInstance] serverWithIdentifier:self.serverIdentifier];
     NSError *serializerError = nil;
     NSMutableURLRequest *request = [server requestWithRequestType:self.requestType URLPath:self.urlPath parameters:parameters requestSerializationType:self.requestSerializerType error:&serializerError];
@@ -142,6 +145,7 @@
 #pragma mark - Private Methods
 
 - (void)successOnCallingAPI:(RJURLResponse *)response {
+    self.isLoading = NO;
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
     
@@ -180,6 +184,7 @@
 }
 
 - (void)failOnCallingAPI:(RJURLResponse *)response errorType:(RJAPIManagerErrorType)errorType {
+    self.isLoading = NO;
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
     self.errorType = errorType;
@@ -323,6 +328,13 @@
         self.errorType = RJAPIManagerErrorTypeNoNetwork;
     }
     return reachable;
+}
+
+- (BOOL)isLoading {
+    if (self.requestIDList.count == 0) {
+        _isLoading = NO;
+    }
+    return _isLoading;
 }
 
 @end

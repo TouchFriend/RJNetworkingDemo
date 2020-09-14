@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否有网络
 @property (nonatomic, assign, readonly) BOOL isReachable;
+/// 是否正在加载
+@property (nonatomic, assign, readonly) BOOL isLoading;
 
 
 /// 成功回调闭包
