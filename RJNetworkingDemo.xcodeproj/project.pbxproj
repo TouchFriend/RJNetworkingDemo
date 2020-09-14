@@ -28,6 +28,7 @@
 		BF3BAE0C250A239A0028151D /* RJCacheCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3BAE0B250A239A0028151D /* RJCacheCenter.m */; };
 		BF3BAE12250A28590028151D /* NSURLRequest+RJNetworkingAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3BAE11250A28590028151D /* NSURLRequest+RJNetworkingAdd.m */; };
 		BF5D821D250F05F3004D5F8F /* RJMemoryCachedRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */; };
+		BF5D8220250F4588004D5F8F /* NSString+RJNetworkingAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5D821F250F4588004D5F8F /* NSString+RJNetworkingAdd.m */; };
 		BF76439EE4F3C3B9AF6C5A26 /* Pods_RJNetworkingDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7872DC2395E2B72930CDBA34 /* Pods_RJNetworkingDemoTests.framework */; };
 		BF8AD2AA2505E03900A37D99 /* RJRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD2A92505E03900A37D99 /* RJRootViewController.m */; };
 		BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */; };
@@ -101,6 +102,8 @@
 		BF3BAE11250A28590028151D /* NSURLRequest+RJNetworkingAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+RJNetworkingAdd.m"; sourceTree = "<group>"; };
 		BF5D821B250F05F3004D5F8F /* RJMemoryCachedRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJMemoryCachedRecord.h; sourceTree = "<group>"; };
 		BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJMemoryCachedRecord.m; sourceTree = "<group>"; };
+		BF5D821E250F4588004D5F8F /* NSString+RJNetworkingAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+RJNetworkingAdd.h"; sourceTree = "<group>"; };
+		BF5D821F250F4588004D5F8F /* NSString+RJNetworkingAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RJNetworkingAdd.m"; sourceTree = "<group>"; };
 		BF8AD2A82505E03900A37D99 /* RJRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJRootViewController.h; sourceTree = "<group>"; };
 		BF8AD2A92505E03900A37D99 /* RJRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJRootViewController.m; sourceTree = "<group>"; };
 		BF98AD6A2501F34200AB1B9A /* RJDemoServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoServer.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 			children = (
 				BF3BAE10250A28590028151D /* NSURLRequest+RJNetworkingAdd.h */,
 				BF3BAE11250A28590028151D /* NSURLRequest+RJNetworkingAdd.m */,
+				BF5D821E250F4588004D5F8F /* NSString+RJNetworkingAdd.h */,
+				BF5D821F250F4588004D5F8F /* NSString+RJNetworkingAdd.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				BF3BAE12250A28590028151D /* NSURLRequest+RJNetworkingAdd.m in Sources */,
 				BF254F932502168F002F5162 /* RJRequestSerializerHelper.m in Sources */,
 				BFC8105D250224E100AA835F /* RJURLResponse.m in Sources */,
+				BF5D8220250F4588004D5F8F /* NSString+RJNetworkingAdd.m in Sources */,
 				BF1C5EB62500E6DE002A6B3B /* RJNetworkingConst.m in Sources */,
 				BFCA65572508E06900EA045F /* RJDemoInterceptor.m in Sources */,
 				BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */,

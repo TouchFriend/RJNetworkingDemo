@@ -27,7 +27,7 @@
         return nil;
     }
     
-    if (cachedRecord.isOutdated || cachedRecord.isEmpty) {
+    if (cachedRecord.isOutdated || cachedRecord.isEmpty) { // 过期或者值为空
         [self.cache removeObjectForKey:key];
         return nil;
     }

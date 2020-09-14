@@ -9,6 +9,7 @@
 #import "RJCacheCenter.h"
 #import "RJDiskCacheCenter.h"
 #import "RJMemoryCacheCenter.h"
+#import "NSString+RJNetworkingAdd.h"
 
 @interface RJCacheCenter ()
 
@@ -47,6 +48,10 @@
     [self.memoryCacheCenter saveCacheWithResponse:response key:key cacheTime:cacheTime];
 }
 
+- (void)clearAllMemoryCache {
+    [self.memoryCacheCenter cleanAll];
+}
+
 - (RJURLResponse *)fetchDiskCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
     NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
     RJURLResponse *response = [self.diskCacheCenter fetchCachedRecordWithKey:key];
@@ -62,12 +67,16 @@
     [self.diskCacheCenter saveCacheWithResponse:response key:key cacheTime:cacheTime];
 }
 
+- (void)clearAllDiskCache {
+    [self.diskCacheCenter cleanAll];
+}
+
 #pragma mark - Private Methods
 
 - (NSString *)keyWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
     NSString *requestInfo = [NSString stringWithFormat:@"requestType:%ld serverIdentifier:%@ urlPath:%@ parameters；%@", requestType, serverIdentifier, urlPath, parameters];
-#warning MD5
-    return requestInfo;
+    NSString *md5String = [NSString rj_md5:requestInfo]; // 使用MD5处理名称过长
+    return md5String;
 }
 
 #pragma mark - Property Methods

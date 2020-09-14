@@ -33,8 +33,8 @@
     if (self) {
         self.requestID = requestID.integerValue;
         self.request = request;
-        self.originRequestParameters = request.originRequestParameters;
-        self.actualRequestParameters = request.actualRequestParameters;
+        self.originRequestParameters = request.rj_originRequestParameters;
+        self.actualRequestParameters = request.rj_actualRequestParameters;
         self.responseObject = responseObject;
         self.error = error;
         self.status = [self responseStatusForError:error];

@@ -14,19 +14,19 @@ static const char RJActualRequestParametersKey = '\0';
 
 @implementation NSURLRequest (RJNetworkingAdd)
 
-- (void)setOriginRequestParameters:(id)originRequestParameters {
+- (void)setRj_originRequestParameters:(id)originRequestParameters {
     objc_setAssociatedObject(self, &RJOriginRequestParametersKey, originRequestParameters, OBJC_ASSOCIATION_COPY);
 }
 
-- (id)originRequestParameters {
+- (id)rj_originRequestParameters {
     return objc_getAssociatedObject(self, &RJOriginRequestParametersKey);
 }
 
-- (void)setActualRequestParameters:(id)actualRequestParameters {
+- (void)setRj_actualRequestParameters:(id)actualRequestParameters {
     objc_setAssociatedObject(self, &RJActualRequestParametersKey, actualRequestParameters, OBJC_ASSOCIATION_COPY);
 }
 
-- (id)actualRequestParameters {
+- (id)rj_actualRequestParameters {
     return objc_getAssociatedObject(self, &RJActualRequestParametersKey);
 }
 

@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSURLRequest (RJNetworkingAdd)
 
 /// 原有的请求参数
-@property (nonatomic, copy) id originRequestParameters;
+@property (nonatomic, copy) id rj_originRequestParameters;
 /// 实际的请求参数
-@property (nonatomic, copy) id actualRequestParameters;
+@property (nonatomic, copy) id rj_actualRequestParameters;
 
 
 @end

@@ -34,8 +34,8 @@
     
     // 添加公有请求头
 //            [request setValue:@"" forHTTPHeaderField:@""];
-    request.originRequestParameters = parameters;
-    request.actualRequestParameters = parameters;
+    request.rj_originRequestParameters = parameters;
+    request.rj_actualRequestParameters = parameters;
     
     return request;
 }

@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param cacheTime 参数
 - (void)saveMemoryCacheWithResponse:(RJURLResponse *)response requestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath cacheTime:(NSTimeInterval)cacheTime;
 
+/// 清除所有内存缓存
+- (void)clearAllMemoryCache;
+
 /// 拉取缓存在沙盒中的数据
 /// @param requestType 请求类型
 /// @param serverIdentifier 服务器标识符
@@ -48,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param urlPath 请求路径
 /// @param cacheTime 参数
 - (void)saveDiskCacheWithResponse:(RJURLResponse *)response requestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath cacheTime:(NSTimeInterval)cacheTime;
+
+/// 清除所有沙盒缓存
+- (void)clearAllDiskCache;
 
 @end
 
