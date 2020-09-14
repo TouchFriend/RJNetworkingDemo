@@ -8,12 +8,14 @@
 
 #import "RJCacheCenter.h"
 #import "RJDiskCacheCenter.h"
+#import "RJMemoryCacheCenter.h"
 
 @interface RJCacheCenter ()
 
+/// 内存缓存中心
+@property (nonatomic, strong) RJMemoryCacheCenter *memoryCacheCenter;
 /// 沙盒缓存中心
 @property (nonatomic, strong) RJDiskCacheCenter *diskCacheCenter;
-
 
 @end
 
@@ -30,6 +32,27 @@
 
 #pragma mark - Public Methods
 
+- (RJURLResponse *)fetchMemoryCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
+    NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
+    RJURLResponse *response = [self.memoryCacheCenter fetchCachedRecordWithKey:key];
+    return response;
+}
+
+- (void)saveMemoryCacheWithResponse:(RJURLResponse *)response requestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath cacheTime:(NSTimeInterval)cacheTime {
+    if (!response.originRequestParameters || !serverIdentifier || !urlPath) {
+        return;
+    }
+    
+    NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:response.originRequestParameters];
+    [self.memoryCacheCenter saveCacheWithResponse:response key:key cacheTime:cacheTime];
+}
+
+- (RJURLResponse *)fetchDiskCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
+    NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
+    RJURLResponse *response = [self.diskCacheCenter fetchCachedRecordWithKey:key];
+    return response;
+}
+
 - (void)saveDiskCacheWithResponse:(RJURLResponse *)response requestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath cacheTime:(NSTimeInterval)cacheTime {
     if (!response.originRequestParameters || !serverIdentifier || !urlPath) {
         return;
@@ -37,12 +60,6 @@
     
     NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:response.originRequestParameters];
     [self.diskCacheCenter saveCacheWithResponse:response key:key cacheTime:cacheTime];
-}
-
-- (RJURLResponse *)fetchDiskCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
-    NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
-    RJURLResponse *response = [self.diskCacheCenter fetchCachedRecordWithKey:key];
-    return response;
 }
 
 #pragma mark - Private Methods
@@ -54,6 +71,13 @@
 }
 
 #pragma mark - Property Methods
+
+- (RJMemoryCacheCenter *)memoryCacheCenter {
+    if (!_memoryCacheCenter) {
+        _memoryCacheCenter = [[RJMemoryCacheCenter alloc] init];
+    }
+    return _memoryCacheCenter;
+}
 
 - (RJDiskCacheCenter *)diskCacheCenter {
     if (!_diskCacheCenter) {

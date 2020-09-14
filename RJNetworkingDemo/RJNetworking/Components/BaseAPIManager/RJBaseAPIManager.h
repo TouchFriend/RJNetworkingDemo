@@ -45,9 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 缓存策略
 @property (nonatomic, assign) RJAPIManagerCachePolicy cachePolicy;
-/// 内存缓存时间，默认3 x 60
+/// 内存缓存时间，默认3 x 60秒
 @property (nonatomic, assign) NSTimeInterval memoryCacheSecond;
-/// 沙盒缓存时间，默认3 x 60
+/// 沙盒缓存时间，默认3 x 60秒
 @property (nonatomic, assign) NSTimeInterval diskCacheSecond;
 /// 是否忽略缓存 默认NO
 @property (nonatomic, assign) BOOL shouldIgnoreCache;

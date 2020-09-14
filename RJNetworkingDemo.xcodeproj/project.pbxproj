@@ -27,6 +27,7 @@
 		BF3BAE09250A1A1E0028151D /* RJMemoryCacheCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3BAE08250A1A1E0028151D /* RJMemoryCacheCenter.m */; };
 		BF3BAE0C250A239A0028151D /* RJCacheCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3BAE0B250A239A0028151D /* RJCacheCenter.m */; };
 		BF3BAE12250A28590028151D /* NSURLRequest+RJNetworkingAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3BAE11250A28590028151D /* NSURLRequest+RJNetworkingAdd.m */; };
+		BF5D821D250F05F3004D5F8F /* RJMemoryCachedRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */; };
 		BF76439EE4F3C3B9AF6C5A26 /* Pods_RJNetworkingDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7872DC2395E2B72930CDBA34 /* Pods_RJNetworkingDemoTests.framework */; };
 		BF8AD2AA2505E03900A37D99 /* RJRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD2A92505E03900A37D99 /* RJRootViewController.m */; };
 		BF98AD6C2501F34200AB1B9A /* RJDemoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF98AD6B2501F34200AB1B9A /* RJDemoServer.m */; };
@@ -98,6 +99,8 @@
 		BF3BAE0B250A239A0028151D /* RJCacheCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJCacheCenter.m; sourceTree = "<group>"; };
 		BF3BAE10250A28590028151D /* NSURLRequest+RJNetworkingAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+RJNetworkingAdd.h"; sourceTree = "<group>"; };
 		BF3BAE11250A28590028151D /* NSURLRequest+RJNetworkingAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+RJNetworkingAdd.m"; sourceTree = "<group>"; };
+		BF5D821B250F05F3004D5F8F /* RJMemoryCachedRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJMemoryCachedRecord.h; sourceTree = "<group>"; };
+		BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJMemoryCachedRecord.m; sourceTree = "<group>"; };
 		BF8AD2A82505E03900A37D99 /* RJRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJRootViewController.h; sourceTree = "<group>"; };
 		BF8AD2A92505E03900A37D99 /* RJRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJRootViewController.m; sourceTree = "<group>"; };
 		BF98AD6A2501F34200AB1B9A /* RJDemoServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoServer.h; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 			children = (
 				BF3BAE07250A1A1E0028151D /* RJMemoryCacheCenter.h */,
 				BF3BAE08250A1A1E0028151D /* RJMemoryCacheCenter.m */,
+				BF5D821B250F05F3004D5F8F /* RJMemoryCachedRecord.h */,
+				BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */,
 			);
 			path = MemoryCache;
 			sourceTree = "<group>";
@@ -621,6 +626,7 @@
 				BF8AD2AA2505E03900A37D99 /* RJRootViewController.m in Sources */,
 				BF1C5EA42500E077002A6B3B /* RJDemoViewController.m in Sources */,
 				BF3BAE09250A1A1E0028151D /* RJMemoryCacheCenter.m in Sources */,
+				BF5D821D250F05F3004D5F8F /* RJMemoryCachedRecord.m in Sources */,
 				BF1C5EA92500E2D5002A6B3B /* RJServerFactory.m in Sources */,
 				BF1C5E6D2500E018002A6B3B /* AppDelegate.m in Sources */,
 				BF1C5E7E2500E01A002A6B3B /* main.m in Sources */,

@@ -11,52 +11,15 @@
 #import "RJBaseAPIManager.h"
 #import "NSURLRequest+RJNetworkingAdd.h"
 
+@interface RJDemoServer ()
+
+@end
+
 @implementation RJDemoServer
 
 @synthesize baseURL = _baseURL, environment = _environment;
 
-- (RJServerAPIEnvironment)environment {
-// 发布
-#ifndef DEBUG
-    
-    return RJServerAPIEnvironmentRelease;
-    
-#endif
-    
-    return RJServerAPIEnvironmentDevelop;
-}
-
-- (NSString *)baseURL {
-    NSString *baseURL = nil;
-    switch (self.environment) {
-        case RJServerAPIEnvironmentRelease:
-        {
-            baseURL = @"https://gateway.marvel.com:443/v1";
-        }
-            break;
-        case RJServerAPIEnvironmentDevelop:
-        {
-            baseURL = @"https://gateway.marvel.com:443/v1";
-        }
-            break;
-        case RJServerAPIEnvironmentTest:
-        {
-            baseURL = @"https://gateway.marvel.com:443/v1";
-        }
-            break;
-        case RJServerAPIEnvironmentPreRelease:
-        {
-            baseURL = @"https://gateway.marvel.com:443/v1";
-        }
-            break;
-        default: {
-            baseURL = @"https://gateway.marvel.com:443/v1";
-        }
-            break;
-    }
-    
-    return baseURL;
-}
+#pragma mark - RJServerProtocol Methods
 
 - (NSMutableURLRequest *)requestWithRequestType:(RJAPIManagerRequestType)requestType URLPath:(NSString *)urlPath parameters:(id)parameters requestSerializationType:(RJAPIManagerRequestSerializerType)requestSerializationType error:(NSError * _Nullable __autoreleasing *)error {
     NSString *URLString = [self.baseURL stringByAppendingPathComponent:urlPath];
@@ -108,6 +71,51 @@
     }
     [manager updateErrorMessage:errorMessage];
     return YES;
+}
+
+#pragma mark - Property Methods
+
+- (RJServerAPIEnvironment)environment {
+// 发布
+#ifndef DEBUG
+    
+    return RJServerAPIEnvironmentRelease;
+    
+#endif
+    
+    return RJServerAPIEnvironmentDevelop;
+}
+
+- (NSString *)baseURL {
+    NSString *baseURL = nil;
+    switch (self.environment) {
+        case RJServerAPIEnvironmentRelease:
+        {
+            baseURL = @"https://gateway.marvel.com:443/v1";
+        }
+            break;
+        case RJServerAPIEnvironmentDevelop:
+        {
+            baseURL = @"https://gateway.marvel.com:443/v1";
+        }
+            break;
+        case RJServerAPIEnvironmentTest:
+        {
+            baseURL = @"https://gateway.marvel.com:443/v1";
+        }
+            break;
+        case RJServerAPIEnvironmentPreRelease:
+        {
+            baseURL = @"https://gateway.marvel.com:443/v1";
+        }
+            break;
+        default: {
+            baseURL = @"https://gateway.marvel.com:443/v1";
+        }
+            break;
+    }
+    
+    return baseURL;
 }
 
 @end

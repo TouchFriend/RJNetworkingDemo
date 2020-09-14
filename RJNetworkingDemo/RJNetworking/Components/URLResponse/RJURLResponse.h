@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 实际的请求参数
 @property (nonatomic, copy) id actualRequestParameters;
 
-/// 是否缓存
+/// 是否缓存过
 @property (nonatomic, assign, getter=isCache, readonly) BOOL cache;
 
 - (instancetype)initWithRequestID:(NSNumber *)requestID request:(NSURLRequest *)request responseObject:(id _Nullable)responseObject error:(NSError *_Nullable)error;

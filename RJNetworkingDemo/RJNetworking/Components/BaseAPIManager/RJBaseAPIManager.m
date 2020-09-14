@@ -9,6 +9,7 @@
 #import "RJBaseAPIManager.h"
 #import "RJServerFactory.h"
 #import "RJAPIProxy.h"
+#import "RJCacheCenter.h"
 
 @interface RJBaseAPIManager ()
 
@@ -64,6 +65,20 @@
     RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithParameterData:parameters];
     if (errorType != RJAPIManagerErrorTypeNoError) {
         [self failOnCallingAPI:nil errorType:errorType];
+        return 0;
+    }
+    
+    RJURLResponse *response = nil;
+    if ((self.cachePolicy == RJAPIManagerCachePolicyMemory) && !self.shouldIgnoreCache) {
+        response = [[RJCacheCenter sharedInstance] fetchMemoryCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
+    }
+    
+    if ((self.cachePolicy == RJAPIManagerCachePolicyDisk) && !self.shouldIgnoreCache) {
+        response = [[RJCacheCenter sharedInstance] fetchDiskCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
+    }
+    
+    if (response) {
+        [self successOnCallingAPI:response];
         return 0;
     }
     
@@ -125,6 +140,16 @@
     if (errorType != RJAPIManagerErrorTypeNoError) {
         [self failOnCallingAPI:response errorType:errorType];
         return;
+    }
+    
+    if (self.cachePolicy != RJAPIManagerCachePolicyNoCache && !response.isCache) {
+        if (self.cachePolicy & RJAPIManagerCachePolicyMemory) {
+            [[RJCacheCenter sharedInstance] saveMemoryCacheWithResponse:response requestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath cacheTime:self.memoryCacheSecond];
+        }
+        
+        if (self.cachePolicy & RJAPIManagerCachePolicyDisk) {
+            [[RJCacheCenter sharedInstance] saveDiskCacheWithResponse:response requestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath cacheTime:self.diskCacheSecond];
+        }
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

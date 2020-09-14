@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RJURLResponse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RJMemoryCacheCenter : NSObject
+
+- (RJURLResponse *)fetchCachedRecordWithKey:(NSString *)key;
+
+- (void)saveCacheWithResponse:(RJURLResponse *)response key:(NSString *)key cacheTime:(NSTimeInterval)cacheTime;
+
+- (void)cleanAll;
 
 @end
 

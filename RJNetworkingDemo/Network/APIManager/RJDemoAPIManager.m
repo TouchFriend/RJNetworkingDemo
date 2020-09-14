@@ -35,8 +35,11 @@
 
 - (NSInteger)loadDataWithUserKey:(NSString *)userKey {
     NSParameterAssert(userKey);
+    // https://gateway.marvel.com:443/v1/public/characters?apikey=d97bab99fa506c7cdf209261ffd06652&hash=97137e9605d1e32acbc2941c4f3eff63&ts=E2B7189A-5DEF-42B4-A5C2-7B04E7509627
     NSDictionary *parameters = @{
-        @"userKey" : userKey
+        @"apikey" : @"d97bab99fa506c7cdf209261ffd06652",
+        @"hash" : @"97137e9605d1e32acbc2941c4f3eff63",
+        @"ts" : @"E2B7189A-5DEF-42B4-A5C2-7B04E7509627"
     };
     self.parameters = parameters;
     return [self loadData];
