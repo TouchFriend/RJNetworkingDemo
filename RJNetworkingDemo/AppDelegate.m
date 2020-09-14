@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RJDemoViewController.h"
 #import "RJRootViewController.h"
+#import <AFNetworking/AFNetworkReachabilityManager.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     RJRootViewController *vc = [[RJRootViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];

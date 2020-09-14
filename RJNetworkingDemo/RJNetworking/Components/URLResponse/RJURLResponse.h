@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 原有的请求参数
 @property (nonatomic, copy) id originRequestParameters;
-/// 实际的请求参数
+/// 实际的请求参数 （原有的请求参数 + 公有的请求参数【比如token】）
 @property (nonatomic, copy) id actualRequestParameters;
 
 /// 是否缓存过

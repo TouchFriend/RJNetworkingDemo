@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL shouldIgnoreCache;
 
 
+/// 是否有网络
+@property (nonatomic, assign, readonly) BOOL isReachable;
+
+
 /// 成功回调闭包
 @property (nonatomic, copy) RJAPIManagerCallbackBlock successBlock;
 /// 失败回调闭包

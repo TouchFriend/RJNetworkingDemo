@@ -10,6 +10,7 @@
 #import "RJServerFactory.h"
 #import "RJAPIProxy.h"
 #import "RJCacheCenter.h"
+#import <AFNetworking/AFNetworkReachabilityManager.h>
 
 @interface RJBaseAPIManager ()
 
@@ -69,10 +70,12 @@
     }
     
     RJURLResponse *response = nil;
+    // 检查是否有内存缓存
     if ((self.cachePolicy == RJAPIManagerCachePolicyMemory) && !self.shouldIgnoreCache) {
         response = [[RJCacheCenter sharedInstance] fetchMemoryCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
     }
     
+    // 再检查是否有沙盒缓存
     if ((self.cachePolicy == RJAPIManagerCachePolicyDisk) && !self.shouldIgnoreCache) {
         response = [[RJCacheCenter sharedInstance] fetchDiskCacheWithRequestType:self.requestType serverIdentifier:self.serverIdentifier urlPath:self.urlPath parameters:parameters];
     }
@@ -82,6 +85,13 @@
         return 0;
     }
     
+    // 无网络
+    if (!self.isReachable) {
+        [self failOnCallingAPI:nil errorType:RJAPIManagerErrorTypeNoNetwork];
+        return 0;
+    }
+    
+    // 实际的网络请求
     id <RJServerProtocol> server = [[RJServerFactory sharedInstance] serverWithIdentifier:self.serverIdentifier];
     NSError *serializerError = nil;
     NSMutableURLRequest *request = [server requestWithRequestType:self.requestType URLPath:self.urlPath parameters:parameters requestSerializationType:self.requestSerializerType error:&serializerError];
@@ -304,6 +314,15 @@
         _requestIDList = [NSMutableArray array];
     }
     return _requestIDList;
+}
+
+- (BOOL)isReachable {
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    BOOL reachable = manager.isReachable;
+    if (!reachable) {
+        self.errorType = RJAPIManagerErrorTypeNoNetwork;
+    }
+    return reachable;
 }
 
 @end
