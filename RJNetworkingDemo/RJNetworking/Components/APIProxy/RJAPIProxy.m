@@ -36,7 +36,7 @@
 - (NSNumber *)callApiWithRequest:(NSURLRequest *)request success:(RJAPIProxyCallbackBlock)success fail:(RJAPIProxyCallbackBlock)fail {
     __block NSURLSessionDataTask *task = nil;
     __weak typeof(self) weakSelf = self;
-    AFHTTPSessionManager *sessionManager = [self sessionManagerForServer:request.rj_server];
+    AFHTTPSessionManager *sessionManager = [self sessionManagerWithServer:request.rj_server];
     task = [sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
         NSNumber *requestID = [NSNumber numberWithInteger:task.taskIdentifier];
@@ -74,7 +74,7 @@
 
 #pragma mark - Private Methods
 
-- (AFHTTPSessionManager *)sessionManagerForServer:(id <RJServerProtocol>)server {
+- (AFHTTPSessionManager *)sessionManagerWithServer:(id <RJServerProtocol>)server {
     AFHTTPSessionManager *sessionManager = nil;
     if ([server respondsToSelector:@selector(sessionManager)]) {
         sessionManager = server.sessionManager;
