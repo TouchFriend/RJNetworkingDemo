@@ -92,11 +92,22 @@
     return method;
 }
 
+#pragma mark - Private Methods
+
+- (void)configurateRequestSerializer:(AFHTTPRequestSerializer *)requestSerializer {
+    requestSerializer.timeoutInterval = 20.0;       // 超时时间
+    requestSerializer.HTTPShouldHandleCookies = YES;        // 是否使用cookie
+    // 添加公有请求头
+//    [requestSerializer setValue:@"" forHTTPHeaderField:@""];
+    
+}
+
 #pragma mark - Property Methods
 
 - (AFHTTPRequestSerializer *)httpSerializer {
     if (!_httpSerializer) {
         _httpSerializer = [AFHTTPRequestSerializer serializer];
+        [self configurateRequestSerializer:_httpSerializer];
     }
     return _httpSerializer;
 }
@@ -104,6 +115,7 @@
 - (AFJSONRequestSerializer *)jsonSerializer {
     if (!_jsonSerializer) {
         _jsonSerializer = [AFJSONRequestSerializer serializer];
+        [self configurateRequestSerializer:_jsonSerializer];
     }
     return _jsonSerializer;
 }
@@ -111,6 +123,7 @@
 - (AFPropertyListRequestSerializer *)propertyListSerializer {
     if (!_propertyListSerializer) {
         _propertyListSerializer = [AFPropertyListRequestSerializer serializer];
+        [self configurateRequestSerializer:_propertyListSerializer];
     }
     return _propertyListSerializer;
 }

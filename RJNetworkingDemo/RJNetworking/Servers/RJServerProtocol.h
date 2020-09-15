@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-/// 会话管理者
+/// 自定义的会话管理者
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
 @end

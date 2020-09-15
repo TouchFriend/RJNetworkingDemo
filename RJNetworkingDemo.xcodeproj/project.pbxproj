@@ -259,7 +259,6 @@
 			children = (
 				BF3BAE01250A197E0028151D /* Cache */,
 				BFC8105A250224D200AA835F /* URLResponse */,
-				BF254F9025021662002F5162 /* Helper */,
 				BF1C5EAC2500E426002A6B3B /* BaseAPIManager */,
 				BF1C5EAD2500E43F002A6B3B /* APIProxy */,
 			);
@@ -298,6 +297,7 @@
 		BF254F8E25021592002F5162 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				BF5E37982510991600535FE6 /* Helper */,
 				BF7DE3E5251062970080B8FA /* Reformer */,
 				BFCA65542508E04D00EA045F /* Interceptor */,
 				BF98AD682501F31200AB1B9A /* Servers */,
@@ -313,15 +313,6 @@
 				BFC8105F25022B0200AA835F /* RJDemoAPIManager.m */,
 			);
 			path = APIManager;
-			sourceTree = "<group>";
-		};
-		BF254F9025021662002F5162 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				BF254F912502168F002F5162 /* RJRequestSerializerHelper.h */,
-				BF254F922502168F002F5162 /* RJRequestSerializerHelper.m */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		BF3BAE01250A197E0028151D /* Cache */ = {
@@ -353,6 +344,15 @@
 				BF3BAE05250A1A130028151D /* RJDiskCacheCenter.m */,
 			);
 			path = DiskCache;
+			sourceTree = "<group>";
+		};
+		BF5E37982510991600535FE6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BF254F912502168F002F5162 /* RJRequestSerializerHelper.h */,
+				BF254F922502168F002F5162 /* RJRequestSerializerHelper.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		BF7DE3E5251062970080B8FA /* Reformer */ = {
