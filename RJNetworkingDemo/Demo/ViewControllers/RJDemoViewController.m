@@ -8,6 +8,7 @@
 
 #import "RJDemoViewController.h"
 #import "RJDemoAPIManager.h"
+#import "RJDemoDataReformer.h"
 
 @interface RJDemoViewController () <RJAPIManagerCallbackDelegate>
 
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) RJDemoAPIManager *demoAPIManager;
 /// <#Desription#>
 @property (nonatomic, assign) NSInteger requestID;
+/// 整流器
+@property (nonatomic, strong) RJDemoDataReformer *demoDataReformer;
 
 
 @end
@@ -71,11 +74,11 @@
 #pragma mark - RJAPIManagerCallbackDelegate Methods
 
 - (void)managerCallAPIDidSuccess:(RJBaseAPIManager *)manager {
-    NSLog(@"成功代理:%@", manager.response.responseObject);
+    NSLog(@"成功代理:%@", [manager fetchDataWithReformer:self.demoDataReformer]);
 }
 
 - (void)managerCallAPIDidFailed:(RJBaseAPIManager *)manager {
-    NSLog(@"失败代理：%@\n%@", manager.response.responseObject, manager.response.error);
+    NSLog(@"失败代理：%@\n%@", [manager fetchDataWithReformer:nil], manager.response.error);
 }
 
 #pragma mark - Property Methods
@@ -87,6 +90,13 @@
         _demoAPIManager.cachePolicy = RJAPIManagerCachePolicyNoCache;
     }
     return _demoAPIManager;;
+}
+
+- (RJDemoDataReformer *)demoDataReformer {
+    if (!_demoDataReformer) {
+        _demoDataReformer = [[RJDemoDataReformer alloc] init];
+    }
+    return _demoDataReformer;
 }
 
 @end

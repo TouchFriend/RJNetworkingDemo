@@ -14,6 +14,8 @@
 
 @interface RJBaseAPIManager ()
 
+/// 拉取的原生数据
+@property (nonatomic, strong) id fetchedRawData;
 /// 请求ID列表
 @property (nonatomic, strong) NSMutableArray *requestIDList;
 /// 错误类型
@@ -32,6 +34,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.fetchedRawData = nil;
         self.errorType = RJAPIManagerErrorTypeDefault;
         self.cachePolicy = RJAPIManagerCachePolicyNoCache;
         self.memoryCacheSecond = 180;
@@ -151,12 +154,28 @@
     self.errorMessage = errorMessage;
 }
 
+- (id)fetchDataWithReformer:(id <RJAPIManagerDataReformer>)reformer {
+    id result = nil;
+    if ([reformer respondsToSelector:@selector(manager:reformData:)]) {
+        result = [reformer manager:self reformData:self.fetchedRawData];
+    } else {
+        result = [self.fetchedRawData mutableCopy];
+    }
+    return result;
+}
+
+- (void)cleanData {
+    self.fetchedRawData = nil;
+    self.errorType = RJAPIManagerErrorTypeDefault;
+}
+
 #pragma mark - Private Methods
 
 - (void)successOnCallingAPI:(RJURLResponse *)response {
     self.isLoading = NO;
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
+    self.fetchedRawData = response.responseObject;
     
     // 验证响应数据是否符合预期
     RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithResponseData:response.responseObject];

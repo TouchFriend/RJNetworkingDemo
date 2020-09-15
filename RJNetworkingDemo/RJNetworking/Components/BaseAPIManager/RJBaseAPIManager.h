@@ -94,6 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param errorMessage 新的错误信息
 - (void)updateErrorMessage:(NSString *)errorMessage;
 
+/// 使用数据整流器处理数据
+/// @param reformer 数据整流器
+- (id _Nullable)fetchDataWithReformer:(id <RJAPIManagerDataReformer>_Nullable)reformer;
+
+/// 清除数据
+- (void)cleanData;
+
 @end
 
 NS_ASSUME_NONNULL_END

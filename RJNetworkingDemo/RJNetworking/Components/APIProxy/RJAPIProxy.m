@@ -36,7 +36,7 @@
     __block NSURLSessionDataTask *task = nil;
     __weak typeof(self) weakSelf = self;
     task = [self.sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
+//        NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
         NSNumber *requestID = [NSNumber numberWithInteger:task.taskIdentifier];
         [weakSelf.dispatchTable removeObjectForKey:requestID];
         
