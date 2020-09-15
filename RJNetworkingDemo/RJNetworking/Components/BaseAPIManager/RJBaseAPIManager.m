@@ -11,6 +11,7 @@
 #import "RJAPIProxy.h"
 #import "RJCacheCenter.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
+#import "NSURLRequest+RJNetworkingAdd.h"
 
 @interface RJBaseAPIManager ()
 
@@ -112,6 +113,7 @@
         return 0;
     }
     
+    request.rj_server = server;
     // 添加私有请求头
     for (NSString *headerField in self.allHTTPHeaderFields.keyEnumerator) {
         [request setValue:self.allHTTPHeaderFields[headerField] forHTTPHeaderField:headerField];

@@ -10,6 +10,7 @@
 #import "RJRequestSerializerHelper.h"
 #import "RJBaseAPIManager.h"
 #import "NSURLRequest+RJNetworkingAdd.h"
+#import <AFNetworking/AFSecurityPolicy.h>
 
 @interface RJDemoServer ()
 
@@ -17,7 +18,7 @@
 
 @implementation RJDemoServer
 
-@synthesize baseURL = _baseURL, environment = _environment;
+@synthesize baseURL = _baseURL, environment = _environment, sessionManager = _sessionManager;
 
 #pragma mark - RJServerProtocol Methods
 
@@ -73,6 +74,25 @@
     return YES;
 }
 
+#pragma mark - Private Methods
+
+//  https证书验证
+- (AFSecurityPolicy *)customSecurityPolicy
+{
+    //  AFSSLPinningModeCertificate 使用证书验证模式
+    AFSecurityPolicy * securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    // allowInvalidCertificates 是否允许无效证书(也就是自建的证书)，默认为NO
+    // 如果是需要验证自建证书，需要设置为YES
+    securityPolicy.allowInvalidCertificates = NO;
+    // validatesDomainName 是否需要验证域名，默认为YES;
+    // 假如证书的域名与你请求的域名不一致，需要把该项设置为NO；如设成NO的话，即服务器使用其他可信任机构颁发的证书，也可以建立连接，这个非常危险，建议打开。
+    // 设置为NO，主要用于这种情况：客户端请求的事子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com,那么mail.google.com是无法验证通过的；当然有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。
+    // 如设置为NO，建议自己添加对应域名的校验逻辑。
+    securityPolicy.validatesDomainName = YES;
+    
+    return securityPolicy;
+}
+
 #pragma mark - Property Methods
 
 - (RJServerAPIEnvironment)environment {
@@ -116,6 +136,17 @@
     }
     
     return baseURL;
+}
+
+- (AFHTTPSessionManager *)sessionManager {
+    if (!_sessionManager) {
+        _sessionManager = [AFHTTPSessionManager manager];
+        NSArray *responseSerializers = @[[AFJSONResponseSerializer serializer], [AFHTTPResponseSerializer serializer], [AFPropertyListResponseSerializer serializer], [AFImageResponseSerializer serializer]];
+        _sessionManager.responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
+        // https认证模式
+//        _sessionManager.securityPolicy = [self customSecurityPolicy];
+    }
+    return _sessionManager;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "RJAPIProxy.h"
 #import <AFNetworking/AFNetworking.h>
+#import "NSURLRequest+RJNetworkingAdd.h"
 
 @interface RJAPIProxy ()
 
@@ -35,7 +36,8 @@
 - (NSNumber *)callApiWithRequest:(NSURLRequest *)request success:(RJAPIProxyCallbackBlock)success fail:(RJAPIProxyCallbackBlock)fail {
     __block NSURLSessionDataTask *task = nil;
     __weak typeof(self) weakSelf = self;
-    task = [self.sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+    AFHTTPSessionManager *sessionManager = [self sessionManagerForServer:request.rj_server];
+    task = [sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
         NSNumber *requestID = [NSNumber numberWithInteger:task.taskIdentifier];
         [weakSelf.dispatchTable removeObjectForKey:requestID];
@@ -68,6 +70,19 @@
     for (NSNumber *requestID in requestIDList) {
         [self cancelRequestWithRequestID:requestID];
     }
+}
+
+#pragma mark - Private Methods
+
+- (AFHTTPSessionManager *)sessionManagerForServer:(id <RJServerProtocol>)server {
+    AFHTTPSessionManager *sessionManager = nil;
+    if ([server respondsToSelector:@selector(sessionManager)]) {
+        sessionManager = server.sessionManager;
+    }
+    if (!sessionManager) {
+        sessionManager = self.sessionManager;
+    }
+    return sessionManager;
 }
 
 #pragma mark - Property Methods

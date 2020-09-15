@@ -10,11 +10,11 @@
 
 @interface RJRequestSerializerHelper ()
 
-/// <#Desription#>
+/// 表单请求序列化
 @property (nonatomic, strong) AFHTTPRequestSerializer *httpSerializer;
-/// <#Desription#>
+/// json请求序列化
 @property (nonatomic, strong) AFJSONRequestSerializer *jsonSerializer;
-/// <#Desription#>
+/// xml请求序列化
 @property (nonatomic, strong) AFPropertyListRequestSerializer *propertyListSerializer;
 
 
