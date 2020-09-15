@@ -175,7 +175,7 @@
     self.isLoading = NO;
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
-    self.fetchedRawData = response.responseObject;
+    self.fetchedRawData = [response.responseObject copy];
     
     // 验证响应数据是否符合预期
     RJAPIManagerErrorType errorType = [self.validator manager:self isCorrectWithResponseData:response.responseObject];
@@ -215,6 +215,7 @@
     self.isLoading = NO;
     [self.requestIDList removeObject:@(response.requestID)];
     self.response = response;
+    self.fetchedRawData = [response.responseObject copy];
     self.errorType = errorType;
     
     id <RJServerProtocol> server = [[RJServerFactory sharedInstance] serverWithIdentifier:self.serverIdentifier];
