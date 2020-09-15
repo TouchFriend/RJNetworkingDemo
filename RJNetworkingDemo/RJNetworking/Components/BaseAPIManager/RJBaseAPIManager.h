@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 请求序列化类型 默认HTTP
 - (RJAPIManagerRequestSerializerType)requestSerializerType;
 /// 请求头
-@property (nonatomic, strong) NSDictionary<NSString *,NSString *> *_Nullable headers;
+@property (nonatomic, copy) NSDictionary<NSString *,NSString *> *_Nullable allHTTPHeaderFields;
 
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;

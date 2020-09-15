@@ -113,8 +113,8 @@
     }
     
     // 添加私有请求头
-    for (NSString *headerField in self.headers.keyEnumerator) {
-        [request setValue:self.headers[headerField] forHTTPHeaderField:headerField];
+    for (NSString *headerField in self.allHTTPHeaderFields.keyEnumerator) {
+        [request setValue:self.allHTTPHeaderFields[headerField] forHTTPHeaderField:headerField];
     }
     
     __weak typeof(self) weakSelf = self;
