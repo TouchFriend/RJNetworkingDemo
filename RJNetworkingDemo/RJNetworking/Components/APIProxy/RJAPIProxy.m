@@ -9,6 +9,7 @@
 #import "RJAPIProxy.h"
 #import <AFNetworking/AFNetworking.h>
 #import "NSURLRequest+RJNetworkingAdd.h"
+#import "RJNetworkingLogger.h"
 
 @interface RJAPIProxy ()
 
@@ -38,11 +39,13 @@
     __weak typeof(self) weakSelf = self;
     AFHTTPSessionManager *sessionManager = [self sessionManagerWithServer:request.rj_server];
     task = [sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
+//        NSLog(@"responseObject:%@ \nerror:%@", responseObject, error);
         NSNumber *requestID = [NSNumber numberWithInteger:task.taskIdentifier];
         [weakSelf.dispatchTable removeObjectForKey:requestID];
         
         RJURLResponse *urlResponse = [[RJURLResponse alloc] initWithRequestID:requestID request:request responseObject:responseObject error:error];
+        
+        [RJNetworkingLogger logDebugInfoWithResponse:(NSHTTPURLResponse *)response responseObject:responseObject request:request error:error];  // 输出日志
         if (!error) {
             if (success) {
                 success(urlResponse);

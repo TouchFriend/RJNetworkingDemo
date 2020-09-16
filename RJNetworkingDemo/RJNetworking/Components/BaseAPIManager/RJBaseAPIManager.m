@@ -12,6 +12,7 @@
 #import "RJCacheCenter.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "NSURLRequest+RJNetworkingAdd.h"
+#import "RJNetworkingLogger.h"
 
 @interface RJBaseAPIManager ()
 
@@ -125,6 +126,8 @@
     for (NSString *headerField in self.allHTTPHeaderFields.keyEnumerator) {
         [request setValue:self.allHTTPHeaderFields[headerField] forHTTPHeaderField:headerField];
     }
+    
+    [RJNetworkingLogger logDebugInfoWithRequst:request apiName:self.urlPath server:server]; // 输出日志
     
     __weak typeof(self) weakSelf = self;
     NSNumber *requestID = [[RJAPIProxy sharedInstance] callApiWithRequest:request success:^(RJURLResponse * _Nonnull response) {

@@ -30,7 +30,7 @@ static NSString * const RJCacheTimeKey = @"cacheTime";
     NSError *serializationError = nil;
     NSDictionary *fetchedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&serializationError];
     if (serializationError) {
-        NSLog(@"JSON serialization error:%@", serializationError);
+        NSLog(@"Disk Cache JSON serialization error:%@", serializationError);
         return nil;
     }
     
@@ -61,7 +61,7 @@ static NSString * const RJCacheTimeKey = @"cacheTime";
     NSError *serializationError = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:saveObject options:NSJSONWritingPrettyPrinted error:&serializationError];
     if (serializationError) {
-        NSLog(@"JSON serialization error:%@", serializationError);
+        NSLog(@"Disk Cache JSON serialization error:%@", serializationError);
         return;
     }
     

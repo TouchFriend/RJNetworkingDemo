@@ -10,6 +10,8 @@
 #import "RJDiskCacheCenter.h"
 #import "RJMemoryCacheCenter.h"
 #import "NSString+RJNetworkingAdd.h"
+#import "RJNetworkingLogger.h"
+#import "RJServerFactory.h"
 
 @interface RJCacheCenter ()
 
@@ -36,6 +38,9 @@
 - (RJURLResponse *)fetchMemoryCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
     NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
     RJURLResponse *response = [self.memoryCacheCenter fetchCachedRecordWithKey:key];
+    if (response) {
+        [RJNetworkingLogger logDebugInfoWithCachedResponse:response apiName:urlPath server:[[RJServerFactory sharedInstance] serverWithIdentifier:serverIdentifier] parameters:parameters]; // 输出日志
+    }
     return response;
 }
 
@@ -55,6 +60,9 @@
 - (RJURLResponse *)fetchDiskCacheWithRequestType:(RJAPIManagerRequestType)requestType serverIdentifier:(NSString *)serverIdentifier urlPath:(NSString *)urlPath parameters:(id)parameters {
     NSString *key = [self keyWithRequestType:requestType serverIdentifier:serverIdentifier urlPath:urlPath parameters:parameters];
     RJURLResponse *response = [self.diskCacheCenter fetchCachedRecordWithKey:key];
+    if (response) {
+        [RJNetworkingLogger logDebugInfoWithCachedResponse:response apiName:urlPath server:[[RJServerFactory sharedInstance] serverWithIdentifier:serverIdentifier] parameters:parameters]; // 输出日志
+    }
     return response;
 }
 
