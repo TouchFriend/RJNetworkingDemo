@@ -25,6 +25,11 @@
 @property (nonatomic, copy, readwrite) NSString *errorMessage;
 /// 是否正在加载
 @property (nonatomic, assign, readwrite) BOOL isLoading;
+/// 请求头
+@property (nonatomic, strong) NSMutableDictionary *mutableHTTPRequestHeaders;
+/// 请求头修改队列
+@property (nonatomic, strong) dispatch_queue_t requestHeaderModificationQueue;
+
 
 @end
 
@@ -41,6 +46,8 @@
         self.memoryCacheSecond = 180;
         self.diskCacheSecond = 180;
         self.shouldIgnoreCache = NO;
+        self.mutableHTTPRequestHeaders = [NSMutableDictionary dictionary];
+        self.requestHeaderModificationQueue = dispatch_queue_create("RJNetworkingRequestHeaderModificationQueue", DISPATCH_QUEUE_CONCURRENT);
     }
     return self;
 }
@@ -169,6 +176,28 @@
 - (void)cleanData {
     self.fetchedRawData = nil;
     self.errorType = RJAPIManagerErrorTypeDefault;
+}
+
+- (NSDictionary<NSString *,NSString *> *)allHTTPHeaderFields {
+    __block NSDictionary *header;
+    dispatch_sync(self.requestHeaderModificationQueue, ^{
+        header = [NSDictionary dictionaryWithDictionary:self.mutableHTTPRequestHeaders];
+    });
+    return header;
+}
+
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
+    dispatch_barrier_sync(self.requestHeaderModificationQueue, ^{
+        [self.mutableHTTPRequestHeaders setValue:value forKey:field];
+    });
+}
+
+- (NSString *)valueForHTTPHeaderField:(NSString *)field {
+    __block NSString *value = nil;
+    dispatch_sync(self.requestHeaderModificationQueue, ^{
+        value = [self.mutableHTTPRequestHeaders valueForKey:field];
+    });
+    return value;
 }
 
 #pragma mark - Private Methods

@@ -33,8 +33,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (RJAPIManagerRequestType)requestType;
 /// 请求序列化类型 默认HTTP
 - (RJAPIManagerRequestSerializerType)requestSerializerType;
+
 /// 请求头
-@property (nonatomic, copy) NSDictionary<NSString *,NSString *> *_Nullable allHTTPHeaderFields;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *,NSString *> *_Nullable allHTTPHeaderFields;
+
+/// 设置请求头信息。如果值为nil，则是移除。
+/// @param value 值
+/// @param field key
+- (void)setValue:(nullable NSString *)value
+forHTTPHeaderField:(NSString *)field;
+
+/// 获取请求头信息
+/// @param field key
+- (nullable NSString *)valueForHTTPHeaderField:(NSString *)field;
 
 /// 响应
 @property (nonatomic, strong) RJURLResponse *response;
