@@ -42,6 +42,7 @@
     [logString appendString:@"\n\n************************************* Response Start *************************************\n\n"];
     
     [logString appendFormat:@"Request URL:\n\t%@\n", request.URL];
+    [logString appendFormat:@"Request Body:\n\t%@\n", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]];
     [logString appendFormat:@"response Object:\n\t%@\n", error ? responseObject : @"请自行检查"];
     [logString appendFormat:@"Error:\n\t%@\n", error ? : @"无"];
     

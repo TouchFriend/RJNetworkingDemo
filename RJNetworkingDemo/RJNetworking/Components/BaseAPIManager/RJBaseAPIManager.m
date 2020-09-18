@@ -318,14 +318,14 @@
 
 - (BOOL)shouldCallAPIWithParameters:(id)parameters {
     BOOL result = YES;
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:shouldCallAPIWithParameters:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:shouldCallAPIWithParameters:)]) {
         result = [self.interceptor manager:self shouldCallAPIWithParameters:parameters];
     }
     return result;
 }
 
 - (void)afterCallAPIWithParameters:(id)parameters {
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterCallAPIWithParameters:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:afterCallAPIWithParameters:)]) {
         [self.interceptor manager:self afterCallAPIWithParameters:parameters];
     }
 }
@@ -333,28 +333,28 @@
 - (BOOL)beforePerformSuccessWithResponse:(RJURLResponse *)response {
     BOOL result = YES;
     self.errorType = RJAPIManagerErrorTypeSuccess;
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:beforePerformSuccessWithResponse:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:beforePerformSuccessWithResponse:)]) {
         result = [self.interceptor manager:self beforePerformSuccessWithResponse:response];
     }
     return result;
 }
 
 - (void)afterPerformSuccessWithResponse:(RJURLResponse *)response {
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterPerformSuccessWithResponse:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:afterPerformSuccessWithResponse:)]) {
         [self.interceptor manager:self afterPerformSuccessWithResponse:response];
     }
 }
 
 - (BOOL)beforePerformFailWithResponse:(RJURLResponse *)response {
     BOOL result = YES;
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:beforePerformFailWithResponse:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:beforePerformFailWithResponse:)]) {
         result = [self.interceptor manager:self beforePerformFailWithResponse:response];
     }
     return result;
 }
 
 - (void)afterPerformFailWithResponse:(RJURLResponse *)response {
-    if (self.interceptor != self && [self.interceptor respondsToSelector:@selector(manager:afterPerformFailWithResponse:)]) {
+    if (self.interceptor.hash != self.hash && [self.interceptor respondsToSelector:@selector(manager:afterPerformFailWithResponse:)]) {
         [self.interceptor manager:self afterPerformFailWithResponse:response];
     }
 }
@@ -386,7 +386,7 @@
 
 - (BOOL)isReachable {
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
-    BOOL reachable = manager.isReachable;
+    BOOL reachable = manager.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable;
     if (!reachable) {
         self.errorType = RJAPIManagerErrorTypeNoNetwork;
     }
