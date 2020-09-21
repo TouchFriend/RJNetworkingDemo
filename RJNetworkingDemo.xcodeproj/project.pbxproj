@@ -108,7 +108,7 @@
 		BF5D821C250F05F3004D5F8F /* RJMemoryCachedRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJMemoryCachedRecord.m; sourceTree = "<group>"; };
 		BF5D821E250F4588004D5F8F /* NSString+RJNetworkingAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+RJNetworkingAdd.h"; sourceTree = "<group>"; };
 		BF5D821F250F4588004D5F8F /* NSString+RJNetworkingAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RJNetworkingAdd.m"; sourceTree = "<group>"; };
-		BF7DE3E6251062AE0080B8FA /* RJDemoDataReformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoDataReformer.h; sourceTree = "<group>"; };
+		BF7DE3E6251062AE0080B8FA /* RJDemoDataReformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJDemoDataReformer.h; sourceTree = "<group>"; usesTabs = 0; };
 		BF7DE3E7251062AE0080B8FA /* RJDemoDataReformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJDemoDataReformer.m; sourceTree = "<group>"; };
 		BF8AD2A82505E03900A37D99 /* RJRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RJRootViewController.h; sourceTree = "<group>"; };
 		BF8AD2A92505E03900A37D99 /* RJRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RJRootViewController.m; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RJ;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = RJSoft;
 				TargetAttributes = {
 					BF1C5E672500E018002A6B3B = {
@@ -746,6 +746,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -804,6 +805,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -838,7 +840,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RJ2G45B9KH;
 				INFOPLIST_FILE = RJNetworkingDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -857,7 +859,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RJ2G45B9KH;
 				INFOPLIST_FILE = RJNetworkingDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

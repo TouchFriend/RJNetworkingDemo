@@ -95,3 +95,14 @@ typedef NS_OPTIONS(NSUInteger, RJAPIManagerCachePolicy) {
 - (void)manager:(RJBaseAPIManager *_Nonnull)manager afterPerformFailWithResponse:(RJURLResponse *_Nonnull)response;
 
 @end
+
+@protocol RJPagableAPIManager <NSObject>
+
+@property (nonatomic, assign) NSInteger pageSize;
+@property (nonatomic, assign, readonly) NSUInteger currentPageNumber;
+@property (nonatomic, assign, readonly) BOOL isFirstPage;
+@property (nonatomic, assign, readonly) BOOL isLastPage;
+
+- (void)loadNextPage;
+
+@end
