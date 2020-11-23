@@ -10,6 +10,7 @@
 #import "RJDemoViewController.h"
 #import "RJRootViewController.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
+#import "RJNetworkingConfig.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//    [RJNetworkingConfig shareInstance].debugMode = NO;
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

@@ -8,6 +8,7 @@
 
 #import "RJMemoryCacheCenter.h"
 #import "RJMemoryCachedRecord.h"
+#import "RJNetworkingConfig.h"
 
 @interface RJMemoryCacheCenter ()
 
@@ -57,7 +58,7 @@
 - (NSCache *)cache {
     if (!_cache) {
         _cache = [[NSCache alloc] init];
-        _cache.countLimit = 10.0;
+        _cache.countLimit = [RJNetworkingConfig shareInstance].cacheResponseCountLimit;
     }
     return _cache;
 }

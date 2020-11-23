@@ -8,10 +8,15 @@
 
 #import "RJNetworkingLogger.h"
 #import "NSURLRequest+RJNetworkingAdd.h"
+#import "RJNetworkingConfig.h"
 
 @implementation RJNetworkingLogger
 
 + (void)logDebugInfoWithRequst:(NSURLRequest *)request apiName:(NSString *)apiName server:(id <RJServerProtocol>)server {
+    if (![RJNetworkingConfig shareInstance].debugMode) {
+        return;
+    }
+    
     NSMutableString *logString = [NSMutableString string];
 #ifdef DEBUG
     
@@ -35,6 +40,9 @@
 }
 
 + (void)logDebugInfoWithResponse:(NSHTTPURLResponse *)response responseObject:(id)responseObject request:(NSURLRequest *)request error:(NSError *)error {
+    if (![RJNetworkingConfig shareInstance].debugMode) {
+        return;
+    }
     
     NSMutableString *logString = [NSMutableString string];
 #ifdef DEBUG
@@ -54,6 +62,10 @@
 }
 
 + (void)logDebugInfoWithCachedResponse:(RJURLResponse *)response apiName:(NSString *)apiName server:(id <RJServerProtocol>)server parameters:(id)parameters {
+    if (![RJNetworkingConfig shareInstance].debugMode) {
+        return;
+    }
+    
     NSMutableString *logString = [NSMutableString string];
     
 #ifdef DEBUG

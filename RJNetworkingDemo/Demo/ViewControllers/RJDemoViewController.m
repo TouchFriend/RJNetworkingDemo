@@ -7,6 +7,7 @@
 //
 
 #import "RJDemoViewController.h"
+#import "RJNetworking.h"
 #import "RJDemoAPIManager.h"
 #import "RJDemoDataReformer.h"
 
