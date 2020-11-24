@@ -54,7 +54,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
+//    NSLog(@"%s", __func__);
     [self cancelAllRequests];
     self.requestIDList = nil;
 }
@@ -138,7 +138,7 @@
         RJAPIManagerErrorType errorType = [strongSelf responseStatusParseToAPIManagerErrorType:response.status];
         [strongSelf failOnCallingAPI:response errorType:errorType];
     }];
-    NSLog(@"requestID:%@", requestID);
+//    NSLog(@"requestID:%@", requestID);
     [self.requestIDList addObject:requestID];
     [self afterCallAPIWithParameters:reformedParameters];
     return requestID.integerValue;
